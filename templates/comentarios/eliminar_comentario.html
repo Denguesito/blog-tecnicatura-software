@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block contenido %}
+
+<div class="container my-5">
+  <h2 class="text-center text-danger mb-4">Eliminar Comentario</h2>
+  <p class="text-center">¿Estás seguro de que deseas eliminar este comentario?</p>
+
+  <form method="post" class="d-flex flex-column align-items-center mt-4">
+    {% csrf_token %}
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+      <a href="{% url 'blog:detalle_articulo' object.articulo.pk %}" class="btn btn-secondary">Cancelar</a>
+    </div>
+  </form>
+</div>
+
+{% endblock contenido %}

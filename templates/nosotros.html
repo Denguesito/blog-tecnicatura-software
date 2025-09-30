@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block contenido %}
+
+<div class="container my-5">
+  <!-- Equipo -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h2 class="h4 text-primary">Nuestro Equipo</h2>
+      <p>Actualmente, el blog está mantenido por:</p>
+      <ul>
+        <li><strong>Diego Iván Gómez</strong> – Back End</li>
+        <li><strong>Claudio Fabián Tomadín Alegre Montañes</strong> – Front End</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Perfiles -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h2 class="h4 text-primary">Perfiles de Usuario</h2>
+      <ul>
+        <li><strong>Visitante:</strong> explora y filtra artículos sin necesidad de registrarse.</li>
+        <li><strong>Estudiante:</strong> crea artículos, comenta y gestiona su perfil.</li>
+        <li><strong>Colaborador:</strong> modera artículos y comentarios, organiza categorías.</li>
+        <li><strong>Super Admin:</strong> reservado a docentes con control total.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Cómo usar el blog -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h2 class="h4 text-primary">Cómo usar el blog</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <h5 class="text-success">✅ Qué subir</h5>
+          <ul>
+            <li>Artículos relacionados con la carrera y proyectos.</li>
+            <li>Noticias, reflexiones o recursos de apoyo.</li>
+            <li>Trabajos prácticos e investigaciones.</li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <h5 class="text-danger">❌ Qué evitar</h5>
+          <ul>
+            <li>Contenido no relacionado con la carrera.</li>
+            <li>Publicaciones ofensivas o discriminatorias.</li>
+            <li>Información sin fuentes o poco confiable.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Funcionalidades -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h2 class="h4 text-primary">Funcionalidades del Blog</h2>
+      <ul>
+        <li>Crear, editar y eliminar artículos propios.</li>
+        <li>Filtrar publicaciones por categorías y orden.</li>
+        <li>Comentar e interactuar con otros estudiantes.</li>
+        <li>Acceso seguro con registro y login.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Secciones -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h2 class="h4 text-primary">Secciones Principales</h2>
+      <ul>
+        <li><strong>Inicio:</strong> últimos artículos publicados.</li>
+        <li><strong>Categorías:</strong> organización temática.</li>
+        <li><strong>Nosotros:</strong> propósito del blog y el equipo.</li>
+        <li><strong>Contacto:</strong> información de la institución y ubicación en Google Maps.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Contacto -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h2 class="h4 text-primary">Contacto</h2>
+      <p>Puedes encontrarnos en la institución:</p>
+      <div class="ratio ratio-16x9">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d444.6335411252763!2d-60.04963930696815!3d-26.93304822200449!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9446bae098d8ae5d%3A0xe63e513b625a995e!2sEsc.N%20940%20Graciela%20C.%20Morales!5e0!3m2!1ses-419!2sar!4v1759115001846!5m2!1ses-419!2sar"
+          width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock contenido %}

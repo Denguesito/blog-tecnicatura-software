@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block contenido %}
+
+<div class="container my-5">
+  <h2 class="text-center text-primary mb-4">Editar Comentario</h2>
+
+  <form method="post" class="p-4 border rounded shadow-sm bg-light">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="d-flex gap-2 mt-3">
+      <button type="submit" class="btn btn-primary">Guardar cambios</button>
+      <a href="{% url 'blog:detalle_articulo' object.articulo.pk %}" class="btn btn-secondary">Cancelar</a>
+    </div>
+  </form>
+</div>
+
+{% endblock contenido %}

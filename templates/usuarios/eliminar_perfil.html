@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block contenido %}
+
+<div class="container my-5">
+  <h2 class="text-center text-danger mb-4">Eliminar Cuenta</h2>
+  <p class="text-center">¿Estás seguro que querés eliminar tu cuenta? Esta acción no se puede deshacer.</p>
+  <div class="card shadow-sm p-4 mx-auto text-center" style="max-width: 500px;">
+    <form method="post">
+      {% csrf_token %}
+      <div class="d-flex justify-content-center gap-2 mt-3">
+        <button type="submit" class="btn btn-danger">Sí, eliminar mi cuenta</button>
+        <a href="{% url 'usuarios:perfil' %}" class="btn btn-secondary">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock contenido %}

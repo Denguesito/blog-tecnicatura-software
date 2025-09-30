@@ -1,0 +1,14 @@
+# Entorno virtual de Python
+venv/
+env/
+ENV/
+.env/
+virtualenv/
+venv*/
+env.py
+.env.local
+.env.*.local
+
+# Archivos de entornos virtuales específicos
+*.venv
+python-env/

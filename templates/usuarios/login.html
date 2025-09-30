@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block contenido %}
+
+<div class="container my-5">
+  <h2 class="text-center text-primary mb-4">Iniciar Sesión</h2>
+  <div class="card shadow-sm p-4 mx-auto" style="max-width: 500px;">
+    <form method="post">
+      {% csrf_token %}
+
+      <div class="mb-3">
+        {{ form.username.label_tag }}
+        {{ form.username }}
+        {% for error in form.username.errors %}
+          <div class="text-danger small">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="mb-3">
+        {{ form.password.label_tag }}
+        {{ form.password }}
+        {% for error in form.password.errors %}
+          <div class="text-danger small">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="d-grid mt-3">
+        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+      </div>
+    </form>
+  </div>
+
+  <p class="text-center mt-3">
+    ¿No tienes cuenta?
+    <a href="{% url 'usuarios:registro' %}">Regístrate aquí</a>
+  </p>
+</div>
+
+{% endblock contenido %}

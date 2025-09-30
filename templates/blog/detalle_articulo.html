@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block contenido %}
+
+<div class="container my-5">
+  <h2 class="text-center text-primary mb-4">{{ articulo.titulo }}</h2>
+  <p class="mb-4">{{ articulo.contenido }}</p>
+
+  {% if articulo.imagenes.all %}
+    <div id="carouselArticulo{{ articulo.pk }}" class="carousel slide mb-4" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        {% for imagen in articulo.imagenes.all %}
+          <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <img src="{{ imagen.imagen.url }}" class="d-block w-100 rounded" alt="{{ articulo.titulo }}">
+          </div>
+        {% endfor %}
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselArticulo{{ articulo.pk }}" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselArticulo{{ articulo.pk }}" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+  {% endif %}
+
+  <span class="badge bg-info text-dark mb-3">{{ articulo.visitas }} visitas</span>
+
+  {% if usuario_actual.is_authenticated and usuario_actual == articulo.autor or usuario_actual.is_staff or usuario_actual.is_superuser %}
+    <div class="d-flex gap-2 flex-wrap mb-4">
+      <a href="{% url 'blog:editar_articulo' articulo.pk %}" class="btn btn-warning">Editar</a>
+      <a href="{% url 'blog:eliminar_articulo' articulo.pk %}" class="btn btn-danger">Eliminar</a>
+    </div>
+  {% endif %}
+
+  <hr class="my-4">
+
+  <h3>Comentarios</h3>
+  <div class="mt-3">
+    {% for comentario in comentarios %}
+      <div class="border rounded p-3 mb-3">
+        <strong class="text-primary">{{ comentario.autor }}</strong>
+        <p class="mb-1">{{ comentario.contenido }}</p>
+        {% if usuario_actual == comentario.autor or usuario_actual.is_superuser or usuario_actual.is_staff %}
+          <div class="d-flex gap-2 flex-wrap">
+            <a href="{% url 'comentarios:editar_comentario' comentario.pk %}" class="btn btn-sm btn-outline-warning">Editar</a>
+            <a href="{% url 'comentarios:eliminar_comentario' comentario.pk %}" class="btn btn-sm btn-outline-danger">Eliminar</a>
+          </div>
+        {% endif %}
+      </div>
+    {% empty %}
+      <p>No hay comentarios aún. ¡Sé el primero en comentar!</p>
+    {% endfor %}
+  </div>
+
+  {% if usuario_actual.is_authenticated %}
+    <hr>
+    <h4 class="mt-4">Deja tu comentario</h4>
+    <form action="{% url 'comentarios:agregar_comentario' articulo.pk %}" method="post" class="mt-3">
+      {% csrf_token %}
+
+      {{ form.contenido }}
+
+      <button type="submit" class="btn btn-primary mt-2">Comentar</button>
+    </form>
+  {% else %}
+    <p>Debes <a href="{% url 'usuarios:login' %}">iniciar sesión</a> para comentar.</p>
+  {% endif %}
+
+  <div class="mt-4">
+    <a href="{% url 'blog:lista_articulos' %}" class="btn btn-secondary">Volver a posts</a>
+  </div>
+</div>
+
+{% endblock contenido %}

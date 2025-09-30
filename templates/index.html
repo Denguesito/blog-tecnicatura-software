@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+
+<div class="text-center my-5">
+  <h2 class="display-6 fw-bold text-primary">Comparte y Aprende Programando</h2>
+  <p class="lead">
+    Bienvenido al blog del IES Machagai, destinado a los alumnos y docentes de la Tecnicatura Superior en Desarrollo de Software. 
+    Aquí podrás descubrir proyectos, compartir experiencias y aprender con los trabajos de los estudiantes.
+  </p>
+</div>
+
+<div class="container">
+
+  <!-- Bloque 1: imagen izquierda, texto derecha -->
+  <div class="row align-items-center g-5 mb-5">
+    <div class="col-md-6">
+      <img src="{% static 'img/proyectos.webp' %}" class="img-fluid rounded shadow" alt="Proyectos de alumnos">
+    </div>
+    <div class="col-md-6">
+      <h3 class="text-primary">Proyectos Destacados</h3>
+      <p>
+        Conoce los trabajos más innovadores de nuestros estudiantes: aplicaciones web, juegos, sistemas y soluciones prácticas.
+        Cada proyecto muestra creatividad y esfuerzo.
+      </p>
+    </div>
+  </div>
+
+  <!-- Bloque 2: imagen derecha, texto izquierda -->
+  <div class="row align-items-center g-5 mb-5">
+    <div class="col-md-6 order-md-2">
+      <img src="{% static 'img/tutoriales.png' %}" class="img-fluid rounded shadow" alt="Tutoriales y recursos">
+    </div>
+    <div class="col-md-6 order-md-1">
+      <h3 class="text-primary">Aprende con Tutoriales</h3>
+      <p>
+        Accede a guías paso a paso, ejercicios prácticos y ejemplos de código realizados por docentes y alumnos avanzados.
+        Perfecto para aprender nuevas habilidades rápidamente.
+      </p>
+    </div>
+  </div>
+
+  <!-- Bloque 3: imagen izquierda, texto derecha -->
+  <div class="row align-items-center g-5 mb-5">
+    <div class="col-md-6">
+      <img src="{% static 'img/comunidad.jpg' %}" class="img-fluid rounded shadow" alt="Comunidad de aprendizaje">
+    </div>
+    <div class="col-md-6">
+      <h3 class="text-primary">Comunidad y Colaboración</h3>
+      <p>
+        Comenta, comparte ideas y colabora con otros estudiantes. Nuestra comunidad es el lugar ideal para resolver dudas,
+        inspirarse y mejorar tus proyectos con la experiencia de todos.
+      </p>
+    </div>
+  </div>
+
+</div>
+
+{% endblock contenido %}
