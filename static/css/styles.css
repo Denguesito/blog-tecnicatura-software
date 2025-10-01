@@ -2,15 +2,17 @@
 /* ESTILOS GLOBALES */
 /* ===================== */
 body {
-  background: linear-gradient(rgba(230, 240, 255, 0.9), rgba(200, 220, 245, 0.9));
+  background: linear-gradient(
+    rgba(230, 240, 255, 0.9),
+    rgba(200, 220, 245, 0.9)
+  );
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding-top: 80px; /* evita que el navbar tape contenido */
   color: #333;
-  padding-top: 0; /* Ajuste: navbar no tapará el banner */
-  box-sizing: border-box;
 }
 
 /* ===================== */
-/* HEADER / NAVBAR */
+/* NAVBAR */
 /* ===================== */
 .navbar {
   background: linear-gradient(90deg, #007BFF, #0056b3);
@@ -30,20 +32,37 @@ body {
 /* ===================== */
 /* BANNER */
 /* ===================== */
+
+/* ===================== */
+/* BANNERS POR SECCIÓN */
+/* ===================== */
+.banner-principal {
+  background-image: url('../img/banner-principal.jpg');
+}
+
+.banner-articulos {
+  background-image: url('../img/banner-post.webp');
+}
+
+.banner-usuarios {
+  background-image: url('../img/banner-perfil-reguistro.jpg');
+}
+
 .banner {
-  background: url("../img/banner-principal.jpg") no-repeat center/cover;
-  height: 65vh;
+  height: 65vh; /* altura estándar */
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   position: relative;
+  background-size: cover;
+  background-position: center;
 }
 .banner::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.3); /* oscurece un poco la imagen */
 }
 .banner-content {
   position: relative;
@@ -55,11 +74,6 @@ body {
   font-weight: bold;
   color: #c3c7d2;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-}
-.banner-content p {
-  font-size: 1.2rem;
-  max-width: 700px;
-  margin: 0 auto;
 }
 
 /* ===================== */
@@ -94,9 +108,6 @@ footer {
 .footer-social ul {
   display: flex;
   gap: 15px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
 }
 .footer-social a {
   color: #fff;
@@ -108,18 +119,7 @@ footer {
 }
 
 /* ===================== */
-/* BOTONES PERSONALIZADOS */
-/* ===================== */
-.btn-cancel {
-  background-color: #6c757d;
-  color: #fff;
-}
-.btn-cancel:hover {
-  background-color: #5a6268;
-}
-
-/* ===================== */
-/* PERFIL DE USUARIO */
+/* AVATAR USUARIO */
 /* ===================== */
 .avatar {
   width: 120px;
@@ -130,62 +130,15 @@ footer {
 }
 
 /* ===================== */
-/* CAROUSEL DE ARTÍCULOS */
-/* ===================== */
-.carousel-inner {
-  max-height: 500px;
-  overflow: hidden;
-}
-.carousel-item img {
-  width: 100%;
-  max-height: 500px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-/* ===================== */
-/* CONTENIDO PRINCIPAL */
-/* ===================== */
-main.container {
-  padding-top: 80px; /* Altura navbar */
-}
-
-/* ===================== */
-/* TEXTAREA RESPONSIVE */
-/* ===================== */
-.textarea_custom1,
-textarea.form-control {
-  width: 100% !important;
-  max-width: 100% !important;
-  box-sizing: border-box;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ced4da;
-  resize: vertical;
-  font-family: inherit;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
-/* ===================== */
-/* AJUSTES RESPONSIVE GENERALES */
+/* RESPONSIVE */
 /* ===================== */
 @media (max-width: 768px) {
   body { padding-top: 70px; }
+  .banner { height: 50vh; }
   .banner-content h1 { font-size: 2rem; }
-  .banner-content p { font-size: 1rem; }
 }
-
-@media (max-width: 576px) {
-  .d-flex.gap-2.flex-wrap {
-    flex-direction: column;
-  }
-}
-
 @media (max-width: 480px) {
   body { padding-top: 65px; }
-  .banner { height: 45vh; }
+  .banner { height: 40vh; }
   .banner-content h1 { font-size: 1.6rem; }
-  .banner-content p { font-size: 0.9rem; }
-  .textarea_custom1 { font-size: 0.9rem; padding: 8px; }
 }
