@@ -10,6 +10,6 @@ class ComentarioForm(forms.ModelForm):
                 'class': 'textarea_custom1',
                 'rows': 10,
                 'cols': 80,
-                'style': 'resize:none;',
+                'style': 'resize:none; width: 100%;',
             }),
         }

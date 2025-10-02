@@ -14,8 +14,11 @@
 <div class="container my-5">
   <h2 class="text-center text-primary mb-4">Perfil de Usuario</h2>
   <div class="card shadow-sm p-4 mx-auto text-center" style="max-width: 600px;">
-    <img class="rounded-circle border border-3 border-primary mb-3"
+    <div class="d-flex justify-content-center">
+      <img class="rounded-circle border border-3 border-primary mb-3"
          src="{% static 'img/avatar.png' %}" alt="Avatar" width="120" height="120">
+    </div>
+    
 
     <ul class="list-group text-start mb-3">
       <li class="list-group-item"><strong>Username:</strong> {{ usuario.username }}</li>

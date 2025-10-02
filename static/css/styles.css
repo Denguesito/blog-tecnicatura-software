@@ -18,7 +18,7 @@ body {
   background: linear-gradient(90deg, #007BFF, #0056b3);
 }
 .navbar-brand img {
-  height: 55px;
+  height: 54px;
   width: auto;
 }
 .navbar .nav-link {
@@ -29,9 +29,13 @@ body {
   color: #ffcc00 !important;
 }
 
-/* ===================== */
-/* BANNER */
-/* ===================== */
+  .navbar-brand:hover {
+    opacity: 0.8; /* ejemplo: se vuelve un poco transparente */
+    transform: scale(1.05); /* ejemplo: aumenta un 5% */
+    transition: all 0.3s; /* animación suave */
+    
+  }
+
 
 /* ===================== */
 /* BANNERS POR SECCIÓN */
@@ -70,7 +74,13 @@ body {
   color: #fff;
 }
 .banner-content h1 {
-  font-size: 3rem;
+  font-size: 5rem;
+  font-weight: bold;
+  color: #c3c7d2;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+}
+.banner-content h2 {
+  font-size: 5rem;
   font-weight: bold;
   color: #c3c7d2;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
@@ -87,6 +97,56 @@ body {
   color: #1E3A8A;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
 }
+ 
+
+
+/* ========================= */
+/* CARRUSEL HORIZONTAL (detalle_articulo.html) */
+/* ========================= */
+.carousel-container {
+  display: flex;
+  overflow-x: auto;          /* scroll horizontal */
+  overflow-y: hidden;
+  gap: 15px;
+  padding: 10px 0;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.carousel-container img {
+  border-radius: 8px;
+  width: 280px;       /* 🔹 miniaturas */
+  height: 180px;
+  object-fit: cover;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.carousel-container img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* Scrollbar para desktop */
+.carousel-container::-webkit-scrollbar { height: 8px; }
+.carousel-container::-webkit-scrollbar-thumb {
+  background-color: #007BFF;
+  border-radius: 4px;
+}
+
+/* ========================= */
+/* MODAL DE IMÁGENES */
+/* ========================= */
+.modal-img {
+  max-width: 100%;
+  max-height: 85vh;   /* ocupa hasta 85% de la pantalla */
+  height: auto;
+  width: auto;
+  border-radius: 8px;
+}
+
 
 /* ===================== */
 /* FOOTER */
@@ -140,5 +200,6 @@ footer {
 @media (max-width: 480px) {
   body { padding-top: 65px; }
   .banner { height: 40vh; }
-  .banner-content h1 { font-size: 1.6rem; }
+  .banner-content h1 { font-size: 3rem; }
+  .banner-content h2 {font-size: 3rem;}
 }

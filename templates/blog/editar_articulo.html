@@ -5,6 +5,7 @@
 {% block banner %}
 <section class="banner banner-articulos">
   <div class="banner-content">
+
   </div>
 </section>
 {% endblock banner %}
@@ -18,19 +19,24 @@
   <form method="post" enctype="multipart/form-data" class="p-4 border rounded shadow-sm bg-light">
     {% csrf_token %}
 
-    <!-- Título -->
-    {{ form.titulo.label_tag }}
-    {{ form.titulo }}
-    {% for error in form.titulo.errors %}
-      <div class="text-danger small">{{ error }}</div>
-    {% endfor %}
+   <!-- Título -->
+<div class="mb-3">
+  {{ form.titulo.label_tag }}
+  {{ form.titulo }}
+  {% for error in form.titulo.errors %}
+    <div class="text-danger small">{{ error }}</div>
+  {% endfor %}
+</div>
 
-    <!-- Contenido -->
-    {{ form.contenido.label_tag }}
-    {{ form.contenido }}
-    {% for error in form.contenido.errors %}
-      <div class="text-danger small">{{ error }}</div>
-    {% endfor %}
+<!-- Contenido -->
+<div class="mb-3">
+  {{ form.contenido.label_tag }}
+  {{ form.contenido }}
+  {% for error in form.contenido.errors %}
+    <div class="text-danger small">{{ error }}</div>
+  {% endfor %}
+</div>
+
 
     <!-- Input nuevas imágenes -->
     <label for="id_imagenes" class="form-label mt-3">Agregar nuevas imágenes:</label>

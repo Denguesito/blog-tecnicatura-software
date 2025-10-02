@@ -16,8 +16,11 @@
   <p class="text-center">¿Estás seguro que querés cerrar sesión?</p>
 
   <div class="card shadow-sm p-4 mx-auto text-center" style="max-width: 500px;">
-    <img class="rounded-circle border border-3 border-secondary mb-3"
-         src="{% static 'img/avatar.png' %}" alt="Avatar" width="100" height="100">
+    <div class="d-flex justify-content-center">
+
+      <img class="rounded-circle border border-3 border-secondary mb-3"
+      src="{% static 'img/avatar.png' %}" alt="Avatar" width="100" height="100">
+    </div>
 
     <form method="post">
       {% csrf_token %}
