@@ -17,7 +17,7 @@
   <form method="post" class="p-4 border rounded shadow-sm bg-light">
     {% csrf_token %}
     {{ form.as_p }}
-    <div class="d-flex gap-2 mt-3">
+    <div class="d-flex gap-2 mt-3 justify-content-center">
       <button type="submit" class="btn btn-primary">Guardar cambios</button>
       <a href="{% url 'blog:detalle_articulo' object.articulo.pk %}" class="btn btn-secondary">Cancelar</a>
     </div>

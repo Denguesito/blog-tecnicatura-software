@@ -28,32 +28,27 @@ body {
 .navbar .nav-link:hover {
   color: #ffcc00 !important;
 }
-
-  .navbar-brand:hover {
-    opacity: 0.8; /* ejemplo: se vuelve un poco transparente */
-    transform: scale(1.05); /* ejemplo: aumenta un 5% */
-    transition: all 0.3s; /* animación suave */
-    
-  }
-
+.navbar-brand:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+  transition: all 0.3s;
+}
 
 /* ===================== */
 /* BANNERS POR SECCIÓN */
 /* ===================== */
 .banner-principal {
-  background-image: url('../img/banner-principal.jpg');
+  background-image: url('../img/banner-principal.webp');
 }
-
 .banner-articulos {
   background-image: url('../img/banner-post.webp');
 }
-
 .banner-usuarios {
-  background-image: url('../img/banner-perfil-reguistro.jpg');
+  background-image: url('../img/banner-perfil-registro.webp');
 }
 
 .banner {
-  height: 65vh; /* altura estándar */
+  height: 65vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -66,19 +61,14 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.3); /* oscurece un poco la imagen */
+  background: rgba(0, 0, 0, 0.3);
 }
 .banner-content {
   position: relative;
   z-index: 2;
   color: #fff;
 }
-.banner-content h1 {
-  font-size: 5rem;
-  font-weight: bold;
-  color: #c3c7d2;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-}
+.banner-content h1,
 .banner-content h2 {
   font-size: 5rem;
   font-weight: bold;
@@ -87,7 +77,7 @@ body {
 }
 
 /* ===================== */
-/* TITULOS */
+/* TITULOS GENERALES */
 /* ===================== */
 .page-title {
   text-align: center;
@@ -97,25 +87,22 @@ body {
   color: #1E3A8A;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
 }
- 
-
 
 /* ========================= */
-/* CARRUSEL HORIZONTAL (detalle_articulo.html) */
+/* CARRUSEL HORIZONTAL */
 /* ========================= */
 .carousel-container {
   display: flex;
-  overflow-x: auto;          /* scroll horizontal */
+  overflow-x: auto;
   overflow-y: hidden;
   gap: 15px;
   padding: 10px 0;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
 }
-
 .carousel-container img {
   border-radius: 8px;
-  width: 280px;       /* 🔹 miniaturas */
+  width: 280px;
   height: 180px;
   object-fit: cover;
   flex-shrink: 0;
@@ -123,13 +110,10 @@ body {
   cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s;
 }
-
 .carousel-container img:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
-
-/* Scrollbar para desktop */
 .carousel-container::-webkit-scrollbar { height: 8px; }
 .carousel-container::-webkit-scrollbar-thumb {
   background-color: #007BFF;
@@ -141,12 +125,11 @@ body {
 /* ========================= */
 .modal-img {
   max-width: 100%;
-  max-height: 85vh;   /* ocupa hasta 85% de la pantalla */
+  max-height: 85vh;
   height: auto;
   width: auto;
   border-radius: 8px;
 }
-
 
 /* ===================== */
 /* FOOTER */
@@ -189,6 +172,112 @@ footer {
   border: 3px solid #007BFF;
 }
 
+/* Formularios unificados - versión institucional */
+.form-card,
+.form-article-card,
+.card-perfil {
+  background: linear-gradient(90deg, #007BFF, #0056b3); /* Fondo claro coherente con el body */
+  color: #fff;               /* Texto oscuro */
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 600px;
+  border: 1px solid #dee2e6;
+}
+
+/* Títulos de forms y perfil */
+.form-card h2,
+.form-article-card h2,
+.card-perfil h2 {
+  color: #fff; /* Azul institucional */
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Labels */
+.form-card label,
+.form-article-card label,
+.card-perfil label {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: #fff; /* Azul institucional */
+}
+
+/* Inputs */
+.form-card input,
+.form-card select,
+.form-card textarea,
+.form-article-card input,
+.form-article-card select,
+.form-article-card textarea,
+.card-perfil input,
+.card-perfil select,
+.card-perfil textarea {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #007BFF;
+  background-color: #fff;
+  color: #333;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+/* Focus */
+.form-card input:focus,
+.form-card select:focus,
+.form-card textarea:focus,
+.form-article-card input:focus,
+.form-article-card select:focus,
+.form-article-card textarea:focus,
+.card-perfil input:focus,
+.card-perfil select:focus,
+.card-perfil textarea:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+/* Botones */
+.btn-form.btn-primary {
+  background-color: #007BFF;
+  color: #fff;
+}
+.btn-form.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+
+/* Perfil */
+.card-perfil .d-flex {
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.card-perfil .list-group-item {
+  background-color: #2a2a2a;
+  color: #f8f9fa;
+  border: none;
+  margin-bottom: 0.3rem;
+  border-radius: 0.5rem;
+}
+.card-perfil img.rounded-circle {
+  border: 3px solid #ffc107;
+  margin-bottom: 1rem;
+}
+
+/* ===================== */
+/* ARTÍCULO DETALLE */
+/* ===================== */
+.articulo-contenido,
+.articulo-contenido * {
+    margin: 0 !important;      /* Quita márgenes de todos los elementos internos */
+    padding: 0 !important;     /* Quita padding de todos los elementos internos */
+    text-indent: 0 !important; /* Quita sangría */
+}
+
 /* ===================== */
 /* RESPONSIVE */
 /* ===================== */
@@ -196,10 +285,31 @@ footer {
   body { padding-top: 70px; }
   .banner { height: 50vh; }
   .banner-content h1 { font-size: 2rem; }
+
 }
 @media (max-width: 480px) {
   body { padding-top: 65px; }
   .banner { height: 40vh; }
   .banner-content h1 { font-size: 3rem; }
-  .banner-content h2 {font-size: 3rem;}
+  .banner-content h2 { font-size: 3rem; }
+  /* Forms en móvil */
+  .form-card,
+  .form-article-card,
+  .card-perfil {
+    width: 90%;
+    margin: 1rem auto;
+    padding: 1.5rem;
+  }
+  .form-card input,
+  .form-card select,
+  .form-card textarea,
+  .form-article-card input,
+  .form-article-card select,
+  .form-article-card textarea,
+  .card-perfil input,
+  .card-perfil select,
+  .card-perfil textarea {
+    width: 100%;
+  }
+  .articulo-contenido { font-size: 14px; }
 }

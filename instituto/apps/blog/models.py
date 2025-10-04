@@ -30,6 +30,10 @@ class Articulo(models.Model):
             )
         )
 
+    def save(self, *args, **kwargs):
+        if self.contenido:
+            self.contenido = self.contenido.lstrip()
+        super().save(*args, **kwargs)
 
 class ImagenArticulo(models.Model):
     articulo = models.ForeignKey(Articulo, on_delete=models.CASCADE, related_name="imagenes")

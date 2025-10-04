@@ -1,66 +1,61 @@
 {% extends "base.html" %}
-
 {% load static %}
 
 {% block banner %}
 <section class="banner banner-articulos">
-  <div class="banner-content">
-  </div>
+  <div class="banner-content"></div>
 </section>
 {% endblock banner %}
 
 {% block titulo %}Crear Artículo{% endblock titulo %}
 
 {% block contenido %}
-<div class="container my-5">
-  <h2 class="text-center text-success mb-4">Crear Artículo</h2>
+<div class="container">
+  <div class="form-article-card">
+    <h2>Crear Artículo</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
 
-  <form method="post" enctype="multipart/form-data" class="p-4 border rounded shadow-sm bg-light">
-    {% csrf_token %}
+      <div class="mb-3">
+        {{ form.titulo.label_tag }}
+        {{ form.titulo }}
+        {% for error in form.titulo.errors %}
+          <div class="text-danger small">{{ error }}</div>
+        {% endfor %}
+      </div>
 
-    <!-- Título -->
-    <div class="mb-3">
-      {{ form.titulo.label_tag }}
-      {{ form.titulo }}
-      {% for error in form.titulo.errors %}
-        <div class="text-danger small">{{ error }}</div>
-      {% endfor %}
-    </div>
+      <div class="mb-3">
+        {{ form.contenido.label_tag }}
+        {{ form.contenido }}
+        {% for error in form.contenido.errors %}
+          <div class="text-danger small">{{ error }}</div>
+        {% endfor %}
+      </div>
 
-    <!-- Contenido -->
-    <div class="mb-3">
-      {{ form.contenido.label_tag }}
-      {{ form.contenido }}
-      {% for error in form.contenido.errors %}
-        <div class="text-danger small">{{ error }}</div>
-      {% endfor %}
-    </div>
+      <div class="mb-3">
+        {{ form.categoria.label_tag }}
+        {{ form.categoria }}
+        {% for error in form.categoria.errors %}
+          <div class="text-danger small">{{ error }}</div>
+        {% endfor %}
+      </div>
 
-    <!-- Categoría -->
-    <div class="mb-3">
-      {{ form.categoria.label_tag }}
-      {{ form.categoria }}
-      {% for error in form.categoria.errors %}
-        <div class="text-danger small">{{ error }}</div>
-      {% endfor %}
-    </div>
+      <div class="mb-3">
+        <label for="id_imagenes" class="form-label">Imágenes:</label>
+        <input type="file" id="id_imagenes" multiple accept="image/*" class="form-control mb-2">
+        <div id="previews" class="d-flex flex-wrap gap-2 mb-3"></div>
+        <input type="file" name="imagenes" id="imagenes_hidden" style="display:none;" multiple>
+      </div>
 
-    <!-- Input para nuevas imágenes -->
-    <div class="mb-3">
-      <label for="id_imagenes" class="form-label">Imágenes:</label>
-      <input type="file" id="id_imagenes" multiple accept="image/*" class="form-control mb-2">
-      <div id="previews" class="d-flex flex-wrap gap-2 mb-3"></div>
-      <input type="file" name="imagenes" id="imagenes_hidden" style="display:none;" multiple>
-    </div>
-
-    <!-- Botones -->
-    <div class="d-flex justify-content-center gap-3 mt-4">
-      <button type="submit" class="btn btn-success px-4">Guardar</button>
-      <a href="{% url 'blog:lista_articulos' %}" class="btn btn-secondary px-4">Cancelar</a>
-    </div>
-  </form>
+      <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
+        <button type="submit" class="btn btn-success btn-form">Guardar</button>
+        <a href="{% url 'blog:lista_articulos' %}" class="btn btn-secondary btn-form">Cancelar</a>
+      </div>
+    </form>
+  </div>
 </div>
 
+<!-- Script preview imágenes (igual que antes) -->
 <script>
 (function(){
     const input = document.getElementById('id_imagenes');

@@ -1,24 +1,20 @@
 {% extends "base.html" %}
-
 {% load static %}
 
 {% block banner %}
 <section class="banner banner-usuarios">
-  <div class="banner-content">
-  </div>
+  <div class="banner-content"></div>
 </section>
 {% endblock banner %}
 
 {% block contenido %}
-
-<div class="container my-5">
-  <h2 class="text-center text-primary mb-4">Perfil de Usuario</h2>
-  <div class="card shadow-sm p-4 mx-auto text-center" style="max-width: 600px;">
+<div class="container">
+  <div class="card-perfil text-center">
     <div class="d-flex justify-content-center">
-      <img class="rounded-circle border border-3 border-primary mb-3"
-         src="{% static 'img/avatar.png' %}" alt="Avatar" width="120" height="120">
+      <img class="rounded-circle mb-3"
+          src="{% static 'img/avatar.webp' %}"
+          alt="Avatar" width="120" height="120">
     </div>
-    
 
     <ul class="list-group text-start mb-3">
       <li class="list-group-item"><strong>Username:</strong> {{ usuario.username }}</li>
@@ -27,11 +23,10 @@
       <li class="list-group-item"><strong>Teléfono:</strong> {{ usuario.telefono }}</li>
     </ul>
 
-    <div class="d-flex justify-content-center gap-2 flex-wrap">
-      <a href="{% url 'usuarios:perfil_editar' %}" class="btn btn-primary">Editar</a>
-      <a href="{% url 'usuarios:perfil_eliminar' %}" class="btn btn-danger">Eliminar cuenta</a>
+    <div class="d-flex gap-2 justify-content-center flex-wrap">
+      <a href="{% url 'usuarios:perfil_editar' %}" class="btn btn-primary btn-form">Editar</a>
+      <a href="{% url 'usuarios:perfil_eliminar' %}" class="btn btn-danger btn-form">Eliminar cuenta</a>
     </div>
   </div>
 </div>
-
 {% endblock contenido %}

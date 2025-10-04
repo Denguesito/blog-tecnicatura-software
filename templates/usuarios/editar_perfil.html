@@ -1,28 +1,25 @@
 {% extends "base.html" %}
-
 {% load static %}
 
 {% block banner %}
 <section class="banner banner-usuarios">
-  <div class="banner-content">
-  </div>
+  <div class="banner-content"></div>
 </section>
 {% endblock banner %}
 
 {% block contenido %}
-
-<div class="container my-5">
-  <h2 class="text-center text-primary mb-4">Editar Perfil</h2>
-  <div class="card shadow-sm p-4 mx-auto" style="max-width: 500px;">
+<div class="container">
+  <div class="form-card">
+    <h2>Editar Perfil</h2>
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
-      <div class="d-flex gap-2 mt-3">
-        <button type="submit" class="btn btn-success">Guardar cambios</button>
-        <a href="{% url 'usuarios:perfil' %}" class="btn btn-secondary">Cancelar</a>
+
+      <div class="d-flex justify-content-center gap-2 mt-3 flex-wrap">
+        <button type="submit" class="btn btn-success btn-form">Guardar cambios</button>
+        <a href="{% url 'usuarios:perfil' %}" class="btn btn-secondary btn-form">Cancelar</a>
       </div>
     </form>
   </div>
 </div>
-
 {% endblock contenido %}

@@ -1,19 +1,16 @@
 {% extends "base.html" %}
-
 {% load static %}
 
 {% block banner %}
 <section class="banner banner-usuarios">
-  <div class="banner-content">
-  </div>
+  <div class="banner-content"></div>
 </section>
 {% endblock banner %}
 
 {% block contenido %}
-
-<div class="container my-5">
-  <h2 class="text-center text-primary mb-4">Iniciar Sesión</h2>
-  <div class="card shadow-sm p-4 mx-auto" style="max-width: 500px;">
+<div class="container">
+  <div class="form-card">
+    <h2>Iniciar Sesión</h2>
     <form method="post">
       {% csrf_token %}
 
@@ -34,7 +31,7 @@
       </div>
 
       <div class="d-grid mt-3">
-        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+        <button type="submit" class="btn btn-primary btn-form">Iniciar Sesión</button>
       </div>
     </form>
   </div>
@@ -44,5 +41,4 @@
     <a href="{% url 'usuarios:registro' %}">Regístrate aquí</a>
   </p>
 </div>
-
 {% endblock contenido %}
