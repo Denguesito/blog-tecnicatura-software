@@ -13,7 +13,7 @@
     <h2>Iniciar Sesión</h2>
     <form method="post">
       {% csrf_token %}
-
+      <input type="hidden" name="next" value="{{ next }}"> 
       <div class="mb-3">
         {{ form.username.label_tag }}
         {{ form.username }}

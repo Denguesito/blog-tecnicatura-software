@@ -33,7 +33,6 @@ class LoginUsuarioView(View):
     template_name = 'usuarios/login.html'
 
     def personalizar_formulario(self, form):
-        """Agrega clases y atributos Bootstrap a los campos del formulario"""
         form.fields['username'].label = 'Usuario'
         form.fields['username'].widget.attrs.update({
             'class': 'form-control',
@@ -47,7 +46,8 @@ class LoginUsuarioView(View):
     def get(self, request):
         form = AuthenticationForm()
         self.personalizar_formulario(form)
-        return render(request, self.template_name, {'form': form})
+        next_url = request.GET.get('next', '')  #  por defecto string vacío
+        return render(request, self.template_name, {'form': form, 'next': next_url})
 
     def post(self, request):
         form = AuthenticationForm(data=request.POST)
@@ -57,10 +57,18 @@ class LoginUsuarioView(View):
             usuario = form.get_user()
             login(request, usuario)
             messages.success(request, f"Bienvenido {usuario.username}")
-            return redirect('index')
-        else:
-            messages.error(request, "Usuario o contraseña incorrectos")
 
+            #  obtenemos next del POST o GET
+            next_url = request.POST.get('next') or request.GET.get('next')
+
+            #  validamos que next_url exista y sea una ruta
+            if next_url and next_url.startswith('/'):
+                return redirect(next_url)
+
+            #  fallback: si no hay next_url, vamos al index
+            return redirect('index')
+
+        messages.error(request, "Usuario o contraseña incorrectos")
         return render(request, self.template_name, {'form': form})
 
 # Perfil detalle
