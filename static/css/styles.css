@@ -13,10 +13,7 @@ body {
     rgba(200, 220, 245, 0.9)
   );
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
   color: #333;
-  
-  
 }
 
 /* ===================== */
@@ -25,10 +22,6 @@ body {
 .navbar {
   background: linear-gradient(90deg, #007BFF, #0056b3);
 }
-.navbar-brand img {
-  height: 54px;
-  width: auto;
-}
 .navbar .nav-link {
   color: #fff !important;
   font-weight: 600;
@@ -36,40 +29,47 @@ body {
 .navbar .nav-link:hover {
   color: #ffcc00 !important;
 }
-.navbar-brand:hover {
-  opacity: 0.8;
-  transform: scale(1.05);
-  transition: all 0.3s;
+
+/* === Nuevo Estilo del Logo en Navbar === */
+.navbar-brand .logo-icon {
+    width: 35px; /* Ajustado al tamaño del navbar */
+    height: 35px;
+    transition: transform 0.3s ease;
 }
 
-/* Logo text styling */
-.logo-text .first-word {
-  color: #fff;
-  font-weight: 700;
-  font-size: 0.85rem;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-  line-height: 1;
+.navbar-brand:hover .logo-icon {
+    transform: rotate(-360deg) scale(1.1); /* Efecto sutil al pasar el mouse */
 }
 
-.logo-text .second-word {
-  color: #fff;
-  font-weight: 600;
-  font-size: 0.75rem;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
-  line-height: 1;
+.navbar-brand .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1; /* Reducido para que estén más juntas */
+    font-family: 'Poppins', sans-serif; /* Usamos la fuente moderna */
 }
 
-/* Optional: scale SVG on hover */
-.navbar-brand .computer-graphic:hover {
-  transform: scale(1.1);
-  transition: transform 0.2s ease-in-out;
+.navbar-brand .text-main,
+.navbar-brand .text-sub {
+    font-size: 0.9rem; /* Mismo tamaño para ambas palabras */
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+    transition: color 0.3s ease;
 }
 
-/* Spacing between SVG and text */
-.navbar-brand .computer-graphic {
-  display: block;
+/* Hacemos la segunda palabra un poco menos prominente */
+.navbar-brand .text-sub {
+    font-weight: 400; 
+    color: #e0e0e0;
 }
 
+.navbar-brand:hover .text-main,
+.navbar-brand:hover .text-sub {
+    color: #ffcc00; /* Coincide con el hover de los nav-links */
+}
+
+
+/*
 .banner-principal {
   background-image: url('../img/banner-principal.webp');
 }
@@ -81,7 +81,9 @@ body {
 .banner-usuarios {
   background-image: url('../img/banner-perfil-registro.webp');
 }
+  */
 
+/* Banner genérico */
 .banner {
   height: 65vh; /* altura estándar */
   display: flex;
@@ -89,31 +91,49 @@ body {
   justify-content: center;
   text-align: center;
   position: relative;
-  background-size: cover;
-  background-position: center;
+  overflow: hidden; /* evita que sobresalga la imagen */
 }
+
+.banner-img {
+  position: absolute;
+  inset: 0; /* ocupa todo el contenedor */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* recorta proporcionalmente */
+  object-position: center;
+  z-index: 0; /* detrás del contenido */
+}
+
+
+/* Superposición oscura encima de la imagen */
 .banner::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.3); /* oscurece un poco la imagen */
+  background: rgba(0, 0, 0, 0.3); /* oscurece la imagen */
+  z-index: 1;
 }
+
+/* Contenido del banner (texto centrado) */
 .banner-content {
   position: relative;
   z-index: 2;
   color: #fff;
 }
+
+/* Títulos dentro del banner */
 .banner-content h1 {
   font-size: 5rem;
   font-weight: bold;
   color: #c3c7d2;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
+
 .banner-content h2 {
   font-size: 5rem;
   font-weight: bold;
   color: #c3c7d2;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 /* ===================== */
@@ -128,7 +148,6 @@ body {
   text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
 }
  
-
 
 /* ========================= */
 /* CARRUSEL HORIZONTAL (detalle_articulo.html) */
@@ -176,8 +195,6 @@ body {
   width: auto;
   border-radius: 8px;
 }
-
-
 
 
 /* Formularios unificados - versión institucional */
@@ -281,14 +298,13 @@ body {
 /* ===================== */
 .articulo-contenido,
 .articulo-contenido * {
-    margin: 0 !important;      /* Quita márgenes de todos los elementos internos */
-    padding: 0 !important;     /* Quita padding de todos los elementos internos */
-    text-indent: 0 !important; /* Quita sangría */
+    background-color: #fff;
+    margin: 0px !important;
+    padding: 21px !important;
+    text-indent: 0 !important;
+    line-height: 2.1;
+    border-radius: 18px; /* Quita sangría */
 }
-
-
-
-
 
 
 
@@ -309,28 +325,8 @@ footer {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
+ 
 
-.footer-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  max-width: 1200px;
-  margin: 0 auto;
-  gap: 20px;
-}
-.footer-social ul {
-  display: flex;
-  gap: 15px;
-}
-.footer-social a {
-  color: #fff;
-  font-size: 1.3rem;
-  text-decoration: none;
-}
-.footer-social a:hover {
-  color: #ffcc00;
-}
 
 /* ===================== */
 /* AVATAR USUARIO */

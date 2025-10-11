@@ -3,15 +3,14 @@
 
 {% block banner %}
 <section class="banner banner-usuarios">
-  <div class="banner-content">
-  </div>
+  <img src="{% static 'img/banner-perfil-registro.webp' %}" alt="Banner de usuarios y registro" class="banner-img">
 </section>
 {% endblock banner %}
 
 {% block contenido %}
 <div class="container">
   <div class="form-card">
-    <h2>Registro de Usuario</h2>
+    <h1>Registro de Usuario</h1>
     <form method="post" class="needs-validation" novalidate>
       {% csrf_token %}
       {{ form.as_p }}

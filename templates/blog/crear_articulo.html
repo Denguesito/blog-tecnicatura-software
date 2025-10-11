@@ -3,7 +3,7 @@
 
 {% block banner %}
 <section class="banner banner-articulos">
-  <div class="banner-content"></div>
+  <img src="{% static 'img/banner-post.webp' %}" alt="Banner de artículos del blog" class="banner-img">
 </section>
 {% endblock banner %}
 
@@ -12,7 +12,7 @@
 {% block contenido %}
 <div class="container">
   <div class="form-article-card">
-    <h2>Crear Artículo</h2>
+    <h1>Crear Artículo</h1>
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
 
