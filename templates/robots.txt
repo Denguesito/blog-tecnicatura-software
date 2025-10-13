@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://tecnicaturadesoftware.pythonanywhere.com/sitemap.xml
