@@ -5,9 +5,11 @@
 {% block banner %}
 <section class="banner banner-principal">
   <img src="{% static 'img/banner-principal.webp' %}" 
-       alt="Banner principal del sitio"
-        loading="lazy"
-       class="banner-img">
+      alt="Banner principal del sitio"
+      class="banner-img"
+      loading="eager"
+      fetchpriority="high"
+      >
   <div class="banner-content">
     
   </div>

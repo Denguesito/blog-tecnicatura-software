@@ -84,9 +84,13 @@
     {% for articulo in articulos %}
     <div class="col-md-6">
       <div class="card h-100 shadow-sm">
-        {% if articulo.imagenes.first %}
-        <img src="{{ articulo.imagenes.first.imagen.url }}" class="card-img-top" alt="{{ articulo.titulo }}">
-        {% endif %}
+     {% if articulo.imagenes.first %}
+     {# Intentar usar variantes si existen en static/img/variants; fallback a la URL original #}
+     <img src="{{ articulo.imagenes.first.imagen.url }}"
+       srcset="{% static 'img/variants/' %}{{ articulo.imagenes.first.imagen.name|slice:':-5' }}-364.webp 364w, {% static 'img/variants/' %}{{ articulo.imagenes.first.imagen.name|slice:':-5' }}-720.webp 720w"
+       sizes="(max-width: 576px) 100vw, 50vw"
+       class="card-img-top" alt="{{ articulo.titulo }}" loading="lazy">
+     {% endif %}
         <div class="card-body d-flex flex-column">
           <h5 class="card-title">{{ articulo.titulo }}</h5>
           <p class="card-text">{{ articulo.contenido|truncatewords:20 }}</p>

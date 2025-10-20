@@ -4,10 +4,10 @@
 {% block banner %}
 <section class="banner banner-principal">
   <img src="{% static 'img/banner-principal.webp' %}" 
-       alt="Banner principal del sitio"
-       fetchpriority="high"
-       loading="eager" 
-       class="banner-img">
+    alt="Banner principal del sitio"
+    fetchpriority="high"
+    loading="eager" 
+    class="banner-img">
   <div class="banner-content">
     <h1>Programa con Pasión</h1>
   </div>
@@ -30,7 +30,10 @@
   <!-- Bloque 1: imagen izquierda, texto derecha -->
   <div class="row align-items-center g-5 mb-5">
     <div class="col-md-6">
-      <img src="{% static 'img/proyectos.webp' %}" class="img-fluid rounded shadow" alt="Proyectos de alumnos">
+   <img src="{% static 'img/proyectos.webp' %}" 
+     srcset="{% static 'img/variants/proyectos-364.webp' %} 364w, {% static 'img/variants/proyectos-720.webp' %} 720w, {% static 'img/variants/proyectos-1280.webp' %} 1280w"
+     sizes="(max-width: 576px) 100vw, 50vw"
+     class="img-fluid rounded shadow" alt="Proyectos de alumnos" loading="lazy">
     </div>
     <div class="col-md-6">
       <h3 class="text-primary">Proyectos Destacados</h3>
@@ -44,7 +47,10 @@
   <!-- Bloque 2: imagen derecha, texto izquierda -->
   <div class="row align-items-center g-5 mb-5">
     <div class="col-md-6 order-md-2">
-      <img src="{% static 'img/tutoriales.webp' %}" class="img-fluid rounded shadow" alt="Tutoriales y recursos">
+   <img src="{% static 'img/tutoriales.webp' %}" 
+     srcset="{% static 'img/variants/tutoriales-364.webp' %} 364w, {% static 'img/variants/tutoriales-720.webp' %} 720w, {% static 'img/variants/tutoriales-1280.webp' %} 1280w"
+     sizes="(max-width: 576px) 100vw, 50vw"
+     class="img-fluid rounded shadow" alt="Tutoriales y recursos" loading="lazy">
     </div>
     <div class="col-md-6 order-md-1">
       <h3 class="text-primary">Aprende con Tutoriales</h3>
@@ -58,7 +64,10 @@
   <!-- Bloque 3: imagen izquierda, texto derecha -->
   <div class="row align-items-center g-5 mb-5">
     <div class="col-md-6">
-      <img src="{% static 'img/comunidad.webp' %}" class="img-fluid rounded shadow" alt="Comunidad de aprendizaje">
+   <img src="{% static 'img/comunidad.webp' %}" 
+     srcset="{% static 'img/variants/comunidad-364.webp' %} 364w, {% static 'img/variants/comunidad-720.webp' %} 720w, {% static 'img/variants/comunidad-1280.webp' %} 1280w"
+     sizes="(max-width: 576px) 100vw, 50vw"
+     class="img-fluid rounded shadow" alt="Comunidad de aprendizaje" loading="lazy">
     </div>
     <div class="col-md-6">
       <h3 class="text-primary">Comunidad y Colaboración</h3>

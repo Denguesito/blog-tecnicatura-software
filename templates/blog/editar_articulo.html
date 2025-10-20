@@ -58,8 +58,8 @@
         <div class="d-flex flex-wrap gap-2 mb-3" id="imagenes_existentes">
           {% for imagen in object.imagenes.all %}
             <div class="position-relative">
-              <img src="{{ imagen.imagen.url }}" class="img-thumbnail"
-                  style="width:120px;height:120px;object-fit:cover;">
+        <img src="{{ imagen.imagen.url }}" class="img-thumbnail"
+          style="width:120px;height:120px;object-fit:cover;" loading="lazy">
               <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 btn-eliminar"
                       data-id="{{ imagen.pk }}">✕</button>
             </div>

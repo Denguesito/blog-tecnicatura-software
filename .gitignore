@@ -12,3 +12,16 @@ env.py
 # Archivos de entornos virtuales específicos
 *.venv
 python-env/
+
+# Ignorar variantes de imágenes generadas y assets recolectados
+instituto/staticfiles/
+staticfiles/
+
+# Archivos temporales / caches
+__pycache__/
+*.pyc
+.DS_Store
+
+# Entorno / secretos
+.env
+.env.*
