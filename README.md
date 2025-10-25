@@ -40,3 +40,19 @@ Siguientes pasos recomendados:
 - Ejecutar el script y luego probar con Lighthouse (móvil) para medir mejora.
 - Considerar afinado de calidad de imagen y añadir `srcset` para todas las imágenes dinámicas en artículos.
 
+CKEditor y sanitización (Bleach)
+--------------------------------
+Se añadió soporte opcional para CKEditor (editor WYSIWYG) y Bleach para sanitizar HTML al guardar. Pasos rápidos:
+
+1. Instalar dependencias (local o en el servidor):
+
+```powershell
+python -m pip install -r requirements.txt
+```
+
+2. Configurar si querés usar CKEditor: en el admin/form se usará `CKEditorUploadingWidget` para el campo `contenido`.
+
+3. Bleach está configurado en `instituto/utils/sanitizers.py` y el formulario limpia el HTML antes de guardar.
+
+4. Recuerda ejecutar `collectstatic` si añades nuevas static o por si cambias la configuración.
+

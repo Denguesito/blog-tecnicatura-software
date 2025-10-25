@@ -15,6 +15,7 @@
     <h1>Crear Artículo</h1>
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
+      {{ form.media }}
 
       <div class="mb-3">
         {{ form.titulo.label_tag }}
@@ -41,10 +42,9 @@
       </div>
 
       <div class="mb-3">
-        <label for="id_imagenes" class="form-label">Imágenes:</label>
-        <input type="file" id="id_imagenes" multiple accept="image/*" class="form-control mb-2">
+        <label for="imagenes_hidden" class="form-label">Imágenes:</label>
+        <input type="file" name="imagenes" id="imagenes_hidden" multiple accept="image/*" class="form-control mb-2">
         <div id="previews" class="d-flex flex-wrap gap-2 mb-3"></div>
-        <input type="file" name="imagenes" id="imagenes_hidden" style="display:none;" multiple>
       </div>
 
       <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
@@ -58,58 +58,198 @@
 <!-- Script preview imágenes (igual que antes) -->
 <script>
 (function(){
-    const input = document.getElementById('id_imagenes');
-    const hidden = document.getElementById('imagenes_hidden');
-    const previews = document.getElementById('previews');
-    const dt = new DataTransfer();
+  // Usamos el input real: name="imagenes" id="imagenes_hidden"
+  const input = document.getElementById('imagenes_hidden');
+  const previews = document.getElementById('previews');
+  let dt = new DataTransfer();
 
-    function updateHiddenAndPreviews(){
-        hidden.files = dt.files;
-        previews.innerHTML = '';
-        for(let i=0;i<dt.files.length;i++){
-            const file = dt.files[i];
-            const url = URL.createObjectURL(file);
+  function renderPreviews(){
+    previews.innerHTML = '';
+    for(let i=0;i<dt.files.length;i++){
+      const file = dt.files[i];
+      const url = URL.createObjectURL(file);
 
-            const wrapper = document.createElement('div');
-            wrapper.classList.add('position-relative');
+      const wrapper = document.createElement('div');
+      wrapper.classList.add('position-relative');
 
-            const img = document.createElement('img');
-            img.src = url;
-            img.classList.add('img-thumbnail');
-            img.style.width = '120px';
-            img.style.height = '120px';
-            img.style.objectFit = 'cover';
+      const img = document.createElement('img');
+      img.src = url;
+      img.classList.add('img-thumbnail');
+      img.style.width = '120px';
+      img.style.height = '120px';
+      img.style.objectFit = 'cover';
 
-            const btn = document.createElement('button');
-            btn.type = 'button';
-            btn.textContent = '✕';
-            btn.classList.add('btn', 'btn-sm', 'btn-danger', 'position-absolute', 'top-0', 'end-0');
-            btn.style.zIndex = '10';
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = '✕';
+      btn.classList.add('btn', 'btn-sm', 'btn-danger', 'position-absolute', 'top-0', 'end-0');
+      btn.style.zIndex = '10';
 
-            btn.addEventListener('click', ()=> {
-                const newDt = new DataTransfer();
-                for(let j=0;j<dt.files.length;j++){
-                    if(j===i) continue;
-                    newDt.items.add(dt.files[j]);
-                }
-                while(dt.items.length) dt.items.remove(0);
-                for(let k=0;k<newDt.files.length;k++) dt.items.add(newDt.files[k]);
-                updateHiddenAndPreviews();
-            });
-
-            wrapper.appendChild(img);
-            wrapper.appendChild(btn);
-            previews.appendChild(wrapper);
+      btn.addEventListener('click', (e)=> {
+        e.preventDefault();
+        const newDt = new DataTransfer();
+        for(let j=0;j<dt.files.length;j++){
+          if(j===i) continue;
+          newDt.items.add(dt.files[j]);
         }
+        dt = newDt;
+        input.files = dt.files;
+        renderPreviews();
+      });
+
+      wrapper.appendChild(img);
+      wrapper.appendChild(btn);
+      previews.appendChild(wrapper);
     }
+  }
 
-    input.addEventListener('change', (e)=>{
-        for(const file of e.target.files){
-            dt.items.add(file);
-        }
-        input.value = '';
-        updateHiddenAndPreviews();
-    });
+  input.addEventListener('change', (e)=>{
+    for(const file of e.target.files){
+      dt.items.add(file);
+    }
+    // asignar al input para que el servidor reciba los archivos
+    input.files = dt.files;
+    // limpiar valor del input para permitir volver a seleccionar mismos archivos si se desea
+    e.target.value = '';
+    renderPreviews();
+  });
 })();
 </script>
+<!-- Fallback: si CKEditor no se inicializa, crear un editor contentEditable sincronizado -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  // detectar si CKEditor5 o CKEditor4 está presente
+  const ckExists = !!(window.ClassicEditor || window.DecoupledEditor || window.CKEDITOR);
+  if(ckExists) return; // editor presente, nada que hacer
+
+  const textarea = document.querySelector('textarea[name="contenido"]');
+  if(!textarea) return;
+
+  // crear fallback contentEditable
+  const fallback = document.createElement('div');
+  fallback.contentEditable = 'true';
+  fallback.className = 'simple-editor border rounded p-2';
+  fallback.style.minHeight = '200px';
+  fallback.style.background = '#fff';
+  fallback.innerHTML = textarea.value || '';
+
+  textarea.style.display = 'none';
+  textarea.parentNode.insertBefore(fallback, textarea);
+
+  // sincronizar antes de submit
+  const form = textarea.form;
+  if(form){
+    form.addEventListener('submit', function(){
+      textarea.value = fallback.innerHTML;
+    });
+  }
+});
+</script>
+<!-- If CKEditor 5 is present but didn't initialize, ensure editor is created with initial data -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  // only attempt if ClassicEditor exists
+  // Refuerzo: si ClassicEditor está presente pero no se inicializó correctamente
+  if(window.ClassicEditor){
+    const toolbar = document.querySelector('.ck-toolbar');
+    const editable = document.querySelector('.ck-editor__editable, .ck-content, .ck-editor__editable_inline');
+    const textarea = document.querySelector('textarea[name="contenido"]');
+    if(textarea && !editable && !document.querySelector('.ck-editor')){
+      // crear editor con initialData inmediatamente
+      const initial = textarea.value || '';
+      const holder = document.createElement('div');
+      textarea.style.display = 'none';
+      textarea.parentNode.insertBefore(holder, textarea);
+      ClassicEditor.create(holder, { initialData: initial, simpleUpload: { uploadUrl: '/ckeditor5/upload/' } })
+        .then(editor => {
+          const form = textarea.form;
+          if(form){
+            form.addEventListener('submit', ()=> textarea.value = editor.getData());
+          }
+        })
+        .catch(err => {
+          console.warn('CKEditor refuerzo falló:', err);
+          textarea.style.display = '';
+          holder.remove();
+        });
+    }
+  }
+});
+</script>
+<!-- Fix: if toolbar exists but editable area is empty, inject textarea content into CKEditor editable and sync on submit -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const textarea = document.querySelector('textarea[name="contenido"]');
+  if(!textarea) return;
+
+  // helper to find CKEditor editable area
+  function findEditable(){
+    return document.querySelector('.ck-editor__editable') || document.querySelector('.ck-content') || document.querySelector('.ck-editor__editable_inline');
+  }
+
+  // if toolbar present but editable empty, copy textarea into it
+  const toolbar = document.querySelector('.ck-toolbar');
+  if(toolbar){
+    const maxAttempts = 20; let attempts = 0;
+    const iv = setInterval(()=>{
+      const ed = findEditable();
+      attempts++;
+      if(ed){
+        if((ed.innerHTML === '' || ed.innerText.trim() === '') && textarea.value.trim() !== ''){
+          ed.innerHTML = textarea.value;
+        }
+        clearInterval(iv);
+      }else if(attempts>maxAttempts){
+        clearInterval(iv);
+      }
+    }, 100);
+  }
+
+  // On submit, if there is an editable region, copy it back to textarea
+  const form = textarea.form;
+  if(form){
+    form.addEventListener('submit', function(){
+      const ed = findEditable();
+      if(ed) textarea.value = ed.innerHTML;
+    });
+  }
+});
+</script>
+<!-- Diagnostic/correction: force editable content and style if blank -->
+<script>
+(() => {
+  function findEditable(){
+    return document.querySelector('.ck-editor__editable') || document.querySelector('.ck-content') || document.querySelector('.ck-editor__editable_inline');
+  }
+
+  const textarea = document.querySelector('textarea[name="contenido"]');
+  if(!textarea) return;
+
+  let attempts = 0;
+  const max = 10;
+  const iv = setInterval(()=>{
+    attempts++;
+    const ed = findEditable();
+    console.debug('[CKEditor-fix] attempt', attempts, 'editable found=', !!ed);
+    if(ed){
+      try{
+        // If editable is empty but textarea has content, inject it
+        const edText = (ed.innerText || '').trim();
+        const taText = (textarea.value || '').trim();
+        console.debug('[CKEditor-fix] edText length', edText.length, 'taText length', taText.length);
+        if((edText.length === 0 || ed.innerHTML.trim()==='') && taText.length>0){
+          ed.innerHTML = textarea.value;
+          // ensure visible color and min-height
+          ed.style.color = '';
+          ed.style.minHeight = '150px';
+          console.info('[CKEditor-fix] injected textarea content into editable');
+        }
+      }catch(e){ console.warn('[CKEditor-fix] error injecting', e); }
+      clearInterval(iv);
+    }
+    if(attempts>=max) clearInterval(iv);
+  }, 300);
+})();
+</script>
+<!-- Debug overlay and embedded-image delete script removed by request -->
 {% endblock contenido %}

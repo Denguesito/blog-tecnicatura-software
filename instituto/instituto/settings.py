@@ -1,24 +1,55 @@
 from pathlib import Path
 import os
+import importlib.util
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# ==========================
+# Cargar variables desde .env (si existe)
+# ==========================
+env_path = Path(__file__).resolve().parent.parent / ".env"
+if env_path.exists():
+    with open(env_path) as f:
+        for line in f:
+            if line.strip() and not line.startswith("#"):
+                key, value = line.strip().split("=", 1)
+                os.environ.setdefault(key, value)
+
+# ==========================
+# Configuración base
+# ==========================
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "REEMPLAZAME_EN_DESARROLLO")
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-7ee)gb17^j^7ryw_%)1#4!(qzf+(c#qd334$y%s-+61cllyya_'
+def env_bool(name, default=False):
+    val = os.environ.get(name)
+    if val is None:
+        return default
+    return str(val).lower() in {"1", "true", "yes", "on"}
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env_bool("DJANGO_DEBUG", True)
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "*").split(",")
+CSRF_TRUSTED_ORIGINS = [o for o in os.environ.get("DJANGO_CSRF_TRUSTED_ORIGINS", "").split(",") if o]
 
-ALLOWED_HOSTS = ['*']
+# ==========================
+# Seguridad
+# ==========================
+if not DEBUG:  # Solo en producción
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = "DENY"
+    REFERRER_POLICY = "strict-origin-when-cross-origin"
+else:
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
+    SECURE_SSL_REDIRECT = False
 
-
-
-
-
-# Application definition
-
+# ==========================
+# Aplicaciones
+# ==========================
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -30,10 +61,22 @@ INSTALLED_APPS = [
     'apps.blog',
     'apps.comentarios',
     'apps.usuarios',
+    'whitenoise.runserver_nostatic',
 ]
 
-AUTH_USER_MODEL = 'usuarios.Usuario'
+# Detectar CKEditor instalado
+_ckeditor_apps = []
+if importlib.util.find_spec('ckeditor') is not None:
+    _ckeditor_apps.append('ckeditor')
+if importlib.util.find_spec('ckeditor_uploader') is not None:
+    _ckeditor_apps.append('ckeditor_uploader')
+if importlib.util.find_spec('django_ckeditor_5') is not None:
+    _ckeditor_apps.append('django_ckeditor_5')
+INSTALLED_APPS += _ckeditor_apps
 
+# ==========================
+# Middleware
+# ==========================
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -47,11 +90,14 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'instituto.urls'
 
+# ==========================
+# Templates
+# ==========================
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(os.path.dirname(BASE_DIR),'templates')],
-        'APP_DIRS': True,
+        'DIRS': [BASE_DIR / 'templates'],
+        'APP_DIRS': True,  # ✅ volvemos a True para evitar el error de loaders
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -63,13 +109,11 @@ TEMPLATES = [
     },
 ]
 
-
 WSGI_APPLICATION = 'instituto.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
+# ==========================
+# Base de datos
+# ==========================
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -77,51 +121,94 @@ DATABASES = {
     }
 }
 
+# ==========================
+# Caché
+# ==========================
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'app-cache',
+    }
+}
 
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
-
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
-LANGUAGE_CODE = 'es-AR'
-
-TIME_ZONE = 'America/Argentina/Buenos_Aires'
-
-USE_I18N = True
-
-USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = (os.path.join(os.path.dirname(BASE_DIR), 'static'),)
+# ==========================
+# Archivos estáticos y media
+# ==========================
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
+# ==========================
+# Usuario personalizado
+# ==========================
+AUTH_USER_MODEL = 'usuarios.Usuario'
 
+# ==========================
+# Configuración CKEditor Clásico
+# ==========================
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_ALLOW_NONIMAGE_FILES = False
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Full',
+        'height': 300,
+        'width': '100%',
+        'extraPlugins': ','.join(['uploadimage', 'image2']),
+        'removePlugins': 'stylesheetparser',
+    }
+}
 
+# ==========================
+# Configuración CKEditor 5
+# ==========================
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'toolbar': [
+            'heading', '|',
+            'bold', 'italic', 'underline', 'strikethrough', 'link', 'blockQuote',
+            '|',
+            'bulletedList', 'numberedList', 'todoList',
+            '|',
+            'fontSize', 'fontColor', 'fontBackgroundColor', 'fontFamily',
+            '|',
+            'insertTable', 'imageUpload', 'mediaEmbed',
+            '|',
+            'undo', 'redo'
+        ],
+        'image': {
+            'toolbar': [
+                'imageTextAlternative',
+                'toggleImageCaption',
+                'imageStyle:full',
+                'imageStyle:alignLeft',
+                'imageStyle:alignCenter',
+                'imageStyle:alignRight',
+                'imageStyle:side'
+            ],
+            'styles': ['full', 'alignLeft', 'alignCenter', 'alignRight', 'side'],
+        },
+        'simpleUpload': {
+            'uploadUrl': '/ckeditor5/upload/',
+        },
+        'heading': {
+            'options': [
+                {'model': 'paragraph', 'title': 'Párrafo', 'class': 'ck-heading_paragraph'},
+                {'model': 'heading1', 'view': 'h1', 'title': 'Encabezado 1', 'class': 'ck-heading_heading1'},
+                {'model': 'heading2', 'view': 'h2', 'title': 'Encabezado 2', 'class': 'ck-heading_heading2'},
+                {'model': 'heading3', 'view': 'h3', 'title': 'Encabezado 3', 'class': 'ck-heading_heading3'},
+            ]
+        },
+        'table': {
+            'contentToolbar': [
+                'tableColumn', 'tableRow', 'mergeTableCells',
+                'tableProperties', 'tableCellProperties'
+            ],
+        }
+    }
+}

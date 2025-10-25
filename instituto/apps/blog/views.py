@@ -8,6 +8,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from apps.comentarios.forms import ComentarioForm
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+from django.core.files.storage import default_storage
+from django.utils import timezone
+from django.utils.text import get_valid_filename
+from django.conf import settings
+import os
 
 
 class ArticuloListView(ListView):
@@ -173,3 +179,27 @@ class PaginaPrincipalView(TemplateView):
         total_visitas = Articulo.objects.aggregate(total_visitas=Sum('visitas'))['total_visitas'] or 0
         context['total_visitas'] = total_visitas
         return context
+
+
+@login_required
+@require_POST
+def ckeditor5_upload(request):
+    """Endpoint simple para recibir subidas desde CKEditor5 SimpleUploadAdapter.
+
+    Espera un campo 'upload' en multipart/form-data y devuelve JSON {"url": "..."}.
+    Requiere usuario autenticado para evitar subidas anónimas.
+    """
+    upload = request.FILES.get('upload')
+    if not upload:
+        return JsonResponse({'error': 'No file uploaded.'}, status=400)
+
+    # construir ruta dentro de MEDIA_ROOT: uploads/YYYY/MM/DD/filename
+    today = timezone.now()
+    folder = os.path.join('uploads', str(today.year), f"{today.month:02}", f"{today.day:02}")
+    filename = get_valid_filename(upload.name)
+    save_path = os.path.join(folder, filename)
+
+    # Asegurar no sobrescribir: default_storage.save hará unique name si existe
+    saved_path = default_storage.save(save_path, upload)
+    url = settings.MEDIA_URL.rstrip('/') + '/' + saved_path.replace('\\', '/')
+    return JsonResponse({'url': url}, status=201)

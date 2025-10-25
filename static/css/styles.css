@@ -32,90 +32,70 @@ body {
 
 /* === Nuevo Estilo del Logo en Navbar === */
 .navbar-brand .logo-icon {
-    width: 35px; /* Ajustado al tamaño del navbar */
-    height: 35px;
-    transition: transform 0.3s ease;
+  width: 35px;
+  height: 35px;
+  transition: transform 0.3s ease;
 }
-
 .navbar-brand:hover .logo-icon {
-    transform: rotate(-360deg) scale(1.1); /* Efecto sutil al pasar el mouse */
+  transform: rotate(-360deg) scale(1.1);
 }
-
 .navbar-brand .logo-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1; /* Reducido para que estén más juntas */
-    font-family: 'Poppins', sans-serif; /* Usamos la fuente moderna */
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  font-family: 'Poppins', sans-serif;
 }
-
 .navbar-brand .text-main,
 .navbar-brand .text-sub {
-    font-size: 0.9rem; /* Mismo tamaño para ambas palabras */
-    font-weight: 700;
-    color: #ffffff;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
-    transition: color 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+  transition: color 0.3s ease;
 }
-
-/* Hacemos la segunda palabra un poco menos prominente */
 .navbar-brand .text-sub {
-    font-weight: 400; 
-    color: #e0e0e0;
+  font-weight: 400;
+  color: #e0e0e0;
 }
-
 .navbar-brand:hover .text-main,
 .navbar-brand:hover .text-sub {
-    color: #ffcc00; /* Coincide con el hover de los nav-links */
+  color: #ffcc00;
 }
 
-
-
-/* Banner genérico */
+/* ===================== */
+/* BANNER */
+/* ===================== */
 .banner {
-  height: 65vh; /* altura estándar */
+  height: 65vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   position: relative;
-  overflow: hidden; /* evita que sobresalga la imagen */
+  overflow: hidden;
 }
-
 .banner-img {
   position: absolute;
-  inset: 0; /* ocupa todo el contenedor */
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* recorta proporcionalmente */
+  object-fit: cover;
   object-position: center;
-  z-index: 0; /* detrás del contenido */
+  z-index: 0;
 }
-
-
-/* Superposición oscura encima de la imagen */
 .banner::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.3); /* oscurece la imagen */
+  background: rgba(0, 0, 0, 0.3);
   z-index: 1;
 }
-
-/* Contenido del banner (texto centrado) */
 .banner-content {
   position: relative;
   z-index: 2;
   color: #fff;
 }
-
-/* Títulos dentro del banner */
-.banner-content h1 {
-  font-size: 5rem;
-  font-weight: bold;
-  color: #c3c7d2;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-}
-
+.banner-content h1,
 .banner-content h2 {
   font-size: 5rem;
   font-weight: bold;
@@ -134,24 +114,22 @@ body {
   color: #1E3A8A;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
 }
- 
 
 /* ========================= */
-/* CARRUSEL HORIZONTAL (detalle_articulo.html) */
+/* CARRUSEL HORIZONTAL */
 /* ========================= */
 .carousel-container {
   display: flex;
-  overflow-x: auto;          /* scroll horizontal */
+  overflow-x: auto;
   overflow-y: hidden;
   gap: 15px;
   padding: 10px 0;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
 }
-
 .carousel-container img {
   border-radius: 8px;
-  width: 280px;       /* 🔹 miniaturas */
+  width: 280px;
   height: 180px;
   object-fit: cover;
   flex-shrink: 0;
@@ -159,13 +137,10 @@ body {
   cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s;
 }
-
 .carousel-container img:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
-
-/* Scrollbar para desktop */
 .carousel-container::-webkit-scrollbar { height: 8px; }
 .carousel-container::-webkit-scrollbar-thumb {
   background-color: #007BFF;
@@ -177,19 +152,20 @@ body {
 /* ========================= */
 .modal-img {
   max-width: 100%;
-  max-height: 85vh;   /* ocupa hasta 85% de la pantalla */
+  max-height: 85vh;
   height: auto;
   width: auto;
   border-radius: 8px;
 }
 
-
-/* Formularios unificados - versión institucional */
+/* ========================= */
+/* FORMULARIOS */
+/* ========================= */
 .form-card,
 .form-article-card,
 .card-perfil {
-  background: linear-gradient(90deg, #007bffa3, #0c7cf6); /* Fondo claro coherente con el body */
-  color: #fff;               /* Texto oscuro */
+  background: linear-gradient(90deg, #007bffa3, #0c7cf6);
+  color: #fff;
   border-radius: 1rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   padding: 2rem;
@@ -197,28 +173,22 @@ body {
   max-width: 600px;
   border: 1px solid #dee2e6;
 }
-
-/* Títulos de forms y perfil */
 .form-card h2,
 .form-article-card h2,
 .card-perfil h2 {
-  color: #fff; /* Azul institucional */
+  color: #fff;
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
   text-align: center;
 }
-
-/* Labels */
 .form-card label,
 .form-article-card label,
 .card-perfil label {
   font-weight: 600;
   margin-bottom: 0.3rem;
-  color: #fff; /* Azul institucional */
+  color: #fff;
 }
-
-/* Inputs */
 .form-card input,
 .form-card select,
 .form-card textarea,
@@ -236,8 +206,6 @@ body {
   color: #333;
   transition: border 0.3s, box-shadow 0.3s;
 }
-
-/* Focus */
 .form-card input:focus,
 .form-card select:focus,
 .form-card textarea:focus,
@@ -251,8 +219,6 @@ body {
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
   outline: none;
 }
-
-/* Botones */
 .btn-form.btn-primary {
   background-color: #007BFF;
   color: #fff;
@@ -261,8 +227,9 @@ body {
   background-color: #0056b3;
 }
 
-
-/* Perfil */
+/* ===================== */
+/* PERFIL */
+/* ===================== */
 .card-perfil .d-flex {
   justify-content: center;
   flex-wrap: wrap;
@@ -285,34 +252,106 @@ body {
 /* ===================== */
 .articulo-contenido,
 .articulo-contenido * {
-    background-color: #fff;
-    margin: 0px !important;
-    padding: 0px 20px !important;
-    text-indent: 0 !important;
-    border-radius: 18px; /* Quita sangría */
+  background-color: #fff;
+  margin: 0px !important;
+  padding: 0px 20px !important;
+  text-indent: 0 !important;
+  border-radius: 18px;
+  border: none;
 }
 
+/* ========================= */
+/* ✅ NUEVO: IMÁGENES EN TABLAS Y RESPONSIVE */
+/* ========================= */
 
+/* Estilo base de imágenes dentro del contenido */
+.articulo-contenido img,
+.ck-content img {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 0.5rem;
+  display: inline-block;
+}
+
+/* Figuras (CKEditor) sin bordes ni sombras */
+.articulo-contenido figure,
+.ck-content figure {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  display: inline-block;
+  margin: 0.5rem;
+}
+
+/* Tablas usadas para alinear imágenes */
+.articulo-contenido table,
+.ck-content table {
+  border-collapse: collapse !important;
+  border: none !important;
+  border-spacing: 0 !important;
+  margin: 1rem auto;
+}
+.articulo-contenido td,
+.ck-content td {
+  border: none !important;
+  padding: 0.5rem !important;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* ✅ FIX BORDES RESIDUALES */
+.articulo-contenido figure::before,
+.articulo-contenido figure::after,
+.ck-content figure::before,
+.ck-content figure::after {
+  content: none !important;
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+}
+
+/* Botón eliminar sobre imágenes embebidas */
+
+
+/* ✅ RESPONSIVE: imágenes lado a lado -> una debajo de otra */
+@media (max-width: 768px) {
+  .articulo-contenido table,
+  .ck-content table {
+    display: block;
+  }
+  .articulo-contenido tr,
+  .ck-content tr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .articulo-contenido td,
+  .ck-content td {
+    display: block;
+    width: 100%;
+  }
+  .articulo-contenido img,
+  .ck-content img {
+    width: 90%;
+    height: auto;
+    margin: 0.5rem auto;
+  }
+}
 
 /* ===================== */
 /* FOOTER */
 /* ===================== */
 footer {
-  /* Degradado diagonal */
   background: linear-gradient(135deg, #343a40 0%, #1a1a1a 100%);
-  
-  /* Sombreado interno sutil */
   box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.4);
-  
   color: #fff;
   padding: 40px 20px;
-  
-  /* Opcional: suaviza los bordes superiores */
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
- 
-
 
 /* ===================== */
 /* AVATAR USUARIO */
@@ -326,7 +365,7 @@ footer {
 }
 
 /* ===================== */
-/* RESPONSIVE */
+/* RESPONSIVE GLOBAL */
 /* ===================== */
 @media (max-width: 768px) {
   body { padding-top: 60px; }
@@ -337,5 +376,15 @@ footer {
   body { padding-top: 60px; }
   .banner { height: 40vh; }
   .banner-content h1 { font-size: 3rem; }
-  .banner-content h2 {font-size: 3rem;}
+  .banner-content h2 { font-size: 3rem; }
 }
+
+/* ===================== */
+/* CKEDITOR VISIBILIDAD */
+/* ===================== */
+.ck-editor__editable, .ck-content, .ck-editor__editable_inline, .simple-editor {
+  color: #111 !important;
+  background-color: transparent !important;
+  min-height: 150px !important;
+}
+.ck-editor__editable p, .ck-content p { color: inherit !important; }
