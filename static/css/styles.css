@@ -30,7 +30,7 @@ body {
   color: #ffcc00 !important;
 }
 
-/* === Nuevo Estilo del Logo en Navbar === */
+/* === Logo en Navbar === */
 .navbar-brand .logo-icon {
   width: 35px;
   height: 35px;
@@ -253,91 +253,110 @@ body {
 .articulo-contenido,
 .articulo-contenido * {
   background-color: #fff;
-  margin: 0px !important;
-  padding: 0px 20px !important;
+  margin: 0 !important;
+  padding: 0 20px !important;
   text-indent: 0 !important;
   border-radius: 18px;
   border: none;
 }
 
 /* ========================= */
-/* ✅ NUEVO: IMÁGENES EN TABLAS Y RESPONSIVE */
+/* CKEDITOR 5: IMÁGENES Y TABLAS */
 /* ========================= */
-
-/* Estilo base de imágenes dentro del contenido */
-.articulo-contenido img,
-.ck-content img {
-  width: 200px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin: 0.5rem;
-  display: inline-block;
+.ck-content figure.image {
+  display: inline-block !important;
+  margin: 4px !important;
+  max-width: 100% !important;
+}
+.ck-content figure.image img {
+  width: 100px !important;
+  height: 100px !important;
+  object-fit: cover !important;
+  border-radius: 6px !important;
+  display: inline-block !important;
+}
+.ck-content figure.image.image_resized {
+  width: auto !important;
+  max-width: 100% !important;
+}
+.ck-content figure.image.image_resized img {
+  width: 100px !important;
+  height: 100px !important;
 }
 
-/* Figuras (CKEditor) sin bordes ni sombras */
-.articulo-contenido figure,
-.ck-content figure {
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  background: transparent !important;
-  display: inline-block;
-  margin: 0.5rem;
+/* Tablas dentro del editor */
+.ck-content .table {
+  width: auto !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  margin: 0.5rem auto !important;
 }
-
-/* Tablas usadas para alinear imágenes */
-.articulo-contenido table,
-.ck-content table {
+.ck-content .table table {
+  width: auto !important;
+  max-width: 100% !important;
+  table-layout: auto !important;
   border-collapse: collapse !important;
-  border: none !important;
-  border-spacing: 0 !important;
-  margin: 1rem auto;
+  border: 1px solid #ccc !important;
 }
-.articulo-contenido td,
-.ck-content td {
-  border: none !important;
-  padding: 0.5rem !important;
+.ck-content .table td,
+.ck-content .table th {
+  border: 1px solid #ddd !important;
+  padding: 4px 6px !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+  word-break: break-word !important;
+}
+
+/* ===== Vista publicada ===== */
+.articulo-contenido figure.image {
+  display: inline-block;
+  margin: 4px;
+  max-width: 100%;
+}
+.articulo-contenido figure.image img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: inline-block;
+  cursor: zoom-in;
+  transition: transform 0.2s ease-in-out;
+}
+.articulo-contenido figure.image img:hover {
+  transform: scale(1.05);
+}
+.articulo-contenido .table {
+  width: auto;
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 0.5rem auto;
+}
+.articulo-contenido .table table {
+  width: auto;
+  max-width: 100%;
+  border-collapse: collapse;
+}
+.articulo-contenido .table td,
+.articulo-contenido .table th {
+  border: 1px solid #ddd;
+  padding: 4px 6px;
   text-align: center;
   vertical-align: middle;
+  word-break: break-word;
 }
 
-/* ✅ FIX BORDES RESIDUALES */
-.articulo-contenido figure::before,
-.articulo-contenido figure::after,
-.ck-content figure::before,
-.ck-content figure::after {
-  content: none !important;
-  border: none !important;
-  outline: none !important;
-  background: transparent !important;
-}
-
-/* Botón eliminar sobre imágenes embebidas */
-
-
-/* ✅ RESPONSIVE: imágenes lado a lado -> una debajo de otra */
+/* Responsive */
 @media (max-width: 768px) {
-  .articulo-contenido table,
-  .ck-content table {
-    display: block;
+  .ck-content figure.image img,
+  .articulo-contenido figure.image img {
+    width: 90% !important;
+    height: auto !important;
   }
-  .articulo-contenido tr,
-  .ck-content tr {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .articulo-contenido td,
-  .ck-content td {
+  .ck-content .table,
+  .articulo-contenido .table {
     display: block;
+    overflow-x: auto;
     width: 100%;
-  }
-  .articulo-contenido img,
-  .ck-content img {
-    width: 90%;
-    height: auto;
-    margin: 0.5rem auto;
   }
 }
 
@@ -385,6 +404,6 @@ footer {
 .ck-editor__editable, .ck-content, .ck-editor__editable_inline, .simple-editor {
   color: #111 !important;
   background-color: transparent !important;
-  min-height: 150px !important;
+  min-height: 300px !important;
 }
 .ck-editor__editable p, .ck-content p { color: inherit !important; }

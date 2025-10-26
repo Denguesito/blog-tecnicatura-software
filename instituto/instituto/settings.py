@@ -96,7 +96,7 @@ ROOT_URLCONF = 'instituto.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR.parent / 'templates'],
         'APP_DIRS': True,  # ✅ volvemos a True para evitar el error de loaders
         'OPTIONS': {
             'context_processors': [
@@ -135,14 +135,15 @@ CACHES = {
 # Archivos estáticos y media
 # ==========================
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+STATICFILES_DIRS = [BASE_DIR.parent / 'static']  # 👈 sube un nivel
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = BASE_DIR.parent / 'media'  # 👈 también sube un nivel
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 # ==========================
 # Usuario personalizado
@@ -173,42 +174,30 @@ CKEDITOR_5_CONFIGS = {
             'heading', '|',
             'bold', 'italic', 'underline', 'strikethrough', 'link', 'blockQuote',
             '|',
-            'bulletedList', 'numberedList', 'todoList',
-            '|',
-            'fontSize', 'fontColor', 'fontBackgroundColor', 'fontFamily',
-            '|',
-            'insertTable', 'imageUpload', 'mediaEmbed',
+            'bulletedList', 'numberedList', 'insertTable', 'imageUpload',
             '|',
             'undo', 'redo'
         ],
         'image': {
+            # Mantener solo herramientas que suelen venir en el build por defecto
             'toolbar': [
                 'imageTextAlternative',
                 'toggleImageCaption',
-                'imageStyle:full',
-                'imageStyle:alignLeft',
-                'imageStyle:alignCenter',
-                'imageStyle:alignRight',
+                'imageStyle:inline',
+                'imageStyle:block',
                 'imageStyle:side'
             ],
-            'styles': ['full', 'alignLeft', 'alignCenter', 'alignRight', 'side'],
+            'styles': ['inline', 'block', 'side'],
         },
         'simpleUpload': {
             'uploadUrl': '/ckeditor5/upload/',
         },
-        'heading': {
-            'options': [
-                {'model': 'paragraph', 'title': 'Párrafo', 'class': 'ck-heading_paragraph'},
-                {'model': 'heading1', 'view': 'h1', 'title': 'Encabezado 1', 'class': 'ck-heading_heading1'},
-                {'model': 'heading2', 'view': 'h2', 'title': 'Encabezado 2', 'class': 'ck-heading_heading2'},
-                {'model': 'heading3', 'view': 'h3', 'title': 'Encabezado 3', 'class': 'ck-heading_heading3'},
-            ]
-        },
         'table': {
             'contentToolbar': [
-                'tableColumn', 'tableRow', 'mergeTableCells',
-                'tableProperties', 'tableCellProperties'
+                'tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties'
             ],
-        }
+        },
     }
 }
+
+

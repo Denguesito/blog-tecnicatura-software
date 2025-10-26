@@ -56,7 +56,7 @@
 
   <!-- Estilos -->
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-  <link rel="icon" type="image/webp" href="{% static 'img/logo.webp' %}">
+  <link rel="icon" type="image/webp" href="{% static 'img/Logo.webp' %}">
 </head>
 
 
@@ -103,7 +103,8 @@
   </nav>
 
   <!-- BANNER -->
-  {% block banner %}{% endblock banner %}
+  {% block banner %}
+  {% endblock banner %}
 
   <!-- CONTENIDO -->
   <main class="container flex-grow-1 mt-3">
@@ -119,53 +120,160 @@
       </div>
     {% endif %}
 
-    {% block contenido %}{% endblock contenido %}
+    {% block contenido %}
+    {% endblock contenido %}
   </main>
 
   <!-- FOOTER -->
-  <footer class="bg-dark text-light py-4 mt-auto position-relative">
-    <div class="container text-center">
-      <h2 class="mb-3">Redes</h2>
+<!-- FOOTER -->
+<footer class="bg-dark text-light py-4 mt-auto position-relative">
+  <div class="container text-center">
+    <h2 class="mb-3">Redes</h2>
 
-      <div class="row justify-content-center g-0">
-        <!-- Diego -->
-        <div class="col-12 col-md-3 mb-3 mb-md-0">
-          <h3 class="desarrolladores" style="font-size: 18px;">Diego Gomez - Backend</h3>
-          <ul class="list-unstyled mb-0 d-flex flex-column align-items-center gap-2">
-            <li><a href="https://github.com/Denguesito" class="text-light text-decoration-none" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-              <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M8 0C3.58 0 0 3.58..."/></svg>
-            </a></li>
-            <li><a href="https://www.instagram.com/diegogomezz70/?igsh=ZXFlNjR3Y3pqcGU5" class="text-light text-decoration-none" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor"><title>Instagram</title><path d="M8 3c1.657 0 ..."/></svg>
-            </a></li>
-            <li><a href="https://www.facebook.com/profile.php?id=557927018" class="text-light text-decoration-none" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-              <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor"><title>Facebook</title><path d="M8.94 8H7V6h1.94V4.5..."/></svg>
-            </a></li>
-          </ul>
-        </div>
+    <div class="row justify-content-center g-0">
+      <!-- Diego -->
+      <div class="col-12 col-md-3 mb-3 mb-md-0">
+        <h3 class="desarrolladores" style="font-size: 18px;">Diego Gomez - Backend</h3>
+        <ul class="list-unstyled mb-0 d-flex flex-column align-items-center gap-2">
 
-        <!-- Claudio -->
-        <div class="col-12 col-md-3">
-          <h3 class="desarrolladores" style="font-size: 18px;">Claudio Tomadin - Frontend</h3>
-          <ul class="list-unstyled mb-0 d-flex flex-column align-items-center gap-2">
-            <li><a href="https://github.com/claudio-caio" class="text-light text-decoration-none" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-              <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor"><title>GitHub</title><path d="M8 0C3.58 0 ..."/></svg>
-            </a></li>
-            <li><a href="https://www.linkedin.com/in/claudio-tomadin-alegre-monta%C3%B1es-719361316/" class="text-light text-decoration-none" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor"><title>LinkedIn</title><path d="M0 1.146C0 ..."/></svg>
-            </a></li>
-            <li><a href="https://x.com/caioalegres" class="text-light text-decoration-none" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
-              <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor"><title>X</title><path d="M5.026 15c6.038 0 ..."/></svg>
-            </a></li>
-          </ul>
-        </div>
+          <!-- GitHub -->
+          <li>
+            <a href="https://github.com/Denguesito" class="text-light text-decoration-none" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <title>GitHub</title>
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29
+                6.53 5.47 7.59.4.07.55-.17.55-.38
+                0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49
+                -2.69-.94-.09-.23-.48-.94-.82-1.13
+                -.28-.15-.68-.52-.01-.53.63-.01 1.08.58
+                1.23.82.72 1.21 1.87.87
+                2.33.66.07-.52.28-.87.51-1.07-1.78-.2
+                -3.64-.89-3.64-3.95
+                0-.87.31-1.59.82-2.15-.08-.2-.36-1.02
+                .08-2.12 0 0 .67-.21 2.2.82A7.65
+                7.65 0 018 4.58c.68 0 1.36.09
+                2.01.27 1.53-1.04 2.2-.82
+                2.2-.82.44 1.1.16 1.92.08
+                2.12.51.56.82 1.27.82 2.15
+                0 3.07-1.87 3.75-3.65
+                3.95.29.25.54.73.54 1.48
+                0 1.07-.01 1.93-.01 2.2
+                0 .21.15.46.55.38A8.013
+                8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+            </a>
+          </li>
+
+          <!-- Instagram -->
+          <li>
+            <a href="https://www.instagram.com/diegogomezz70/?igsh=ZXFlNjR3Y3pqcGU5" class="text-light text-decoration-none" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <title>Instagram</title>
+                <path d="M8 3c1.657 0 1.86.006 2.513.036.65.03 1.09.137 1.34.229.338.132.58.29.834.545.255.254.413.496.545.834.092.25.199.69.229 1.34C13 6.14 13 6.343 13 8s-.006 1.86-.036 2.513c-.03.65-.137 1.09-.229 1.34a2.6 2.6 0 0 1-.545.834c-.254.255-.496.413-.834.545-.25.092-.69.199-1.34.229C9.86 13 9.657 13 8 13s-1.86-.006-2.513-.036c-.65-.03-1.09-.137-1.34-.229a2.6 2.6 0 0 1-.834-.545 2.6 2.6 0 0 1-.545-.834c-.092-.25-.199-.69-.229-1.34C3 9.86 3 9.657 3 8s.006-1.86.036-2.513c.03-.65.137-1.09.229-1.34.132-.338.29-.58.545-.834.254-.255.496-.413.834-.545.25-.092.69-.199 1.34-.229C6.14 3 6.343 3 8 3zM8 0C6.326 0 6.097.006 5.423.036 4.75.065 4.221.18 3.75.36a4.605 4.605 0 0 0-1.66 1.08A4.606 4.606 0 0 0 1.01 3.1C.83 3.57.715 4.099.686 4.773.656 5.447.65 5.676.65 7.35v1.3c0 1.674.006 1.903.036 2.577.03.674.145 1.203.325 1.674.18.47.417.853.742 1.178.325.325.708.562 1.178.742.471.18 1 .295 1.674.325.674.03.903.036 2.577.036h1.3c1.674 0 1.903-.006 2.577-.036.674-.03 1.203-.145 1.674-.325a4.605 4.605 0 0 0 1.178-.742c.325-.325.562-.708.742-1.178.18-.471.295-1 .325-1.674.03-.674.036-.903.036-2.577v-1.3c0-1.674-.006-1.903-.036-2.577-.03-.674-.145-1.203-.325-1.674a4.606 4.606 0 0 0-.742-1.178 4.606 4.606 0 0 0-1.178-.742c-.471-.18-1-.295-1.674-.325C9.903.006 9.674 0 8 0z"/>
+              </svg>
+            </a>
+          </li>
+
+          <!-- Facebook -->
+          <li>
+            <a href="https://www.facebook.com/profile.php?id=557927018" class="text-light text-decoration-none" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <title>Facebook</title>
+                <path d="M8.94 8H7V6h1.94V4.5C8.94 3.12 9.88 2 11.73 2c.53 0 .98.04 1.27.06v1.48h-.87c-.68 0-.93.32-.93.8V6h1.8l-.23 2H11.2v6H8.94V8z"/>
+              </svg>
+            </a>
+          </li>
+        </ul>
       </div>
 
-      <p class="mb-0 text-secondary small mt-4">
-        &copy; 2025 CreartiCome. Todos los derechos reservados.
-      </p>
+      <!-- Claudio -->
+      <div class="col-12 col-md-3">
+        <h3 class="desarrolladores" style="font-size: 18px;">Claudio Tomadin - Frontend</h3>
+        <ul class="list-unstyled mb-0 d-flex flex-column align-items-center gap-2">
+
+          <!-- GitHub -->
+          <li>
+            <a href="https://github.com/claudio-caio" class="text-light text-decoration-none" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <title>GitHub</title>
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29
+                6.53 5.47 7.59.4.07.55-.17.55-.38
+                0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49
+                -2.69-.94-.09-.23-.48-.94-.82-1.13
+                -.28-.15-.68-.52-.01-.53.63-.01 1.08.58
+                1.23.82.72 1.21 1.87.87
+                2.33.66.07-.52.28-.87.51-1.07-1.78-.2
+                -3.64-.89-3.64-3.95
+                0-.87.31-1.59.82-2.15-.08-.2-.36-1.02
+                .08-2.12 0 0 .67-.21 2.2.82A7.65
+                7.65 0 018 4.58c.68 0 1.36.09
+                2.01.27 1.53-1.04 2.2-.82
+                2.2-.82.44 1.1.16 1.92.08
+                2.12.51.56.82 1.27.82 2.15
+                0 3.07-1.87 3.75-3.65
+                3.95.29.25.54.73.54 1.48
+                0 1.07-.01 1.93-.01 2.2
+                0 .21.15.46.55.38A8.013
+                8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+            </a>
+          </li>
+
+          <!-- LinkedIn -->
+          <li>
+            <a href="https://www.linkedin.com/in/claudio-tomadin-alegre-monta%C3%B1es-719361316/" class="text-light text-decoration-none" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <title>LinkedIn</title>
+                <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0
+                16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175
+                1.146H1.175A1.146 1.146 0 010 14.854V1.146zM4.943
+                12.306V6.169H3.122v6.137h1.821zm-.911-7.021c.58
+                0 .94-.389.94-.873-.01-.497-.36-.873-.931-.873-.57
+                0-.94.376-.94.873 0 .484.36.873.921.873h.01zM13.273
+                12.306V9.359c0-1.57-.84-2.3-1.96-2.3-.905 0-1.312.497
+                -1.54.847v-.724H7.952c.02.477 0 5.124 0 5.124h1.821v-2.86
+                c0-.153.01-.307.056-.418.123-.307.4-.625.868-.625.613 0
+                .857.47.857 1.156v2.747h1.819z"/>
+              </svg>
+            </a>
+          </li>
+
+          <!-- X (Twitter) -->
+          <li>
+            <a href="https://x.com/caioalegres" class="text-light text-decoration-none" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+              <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <title>X</title>
+                <path d="M5.026 15c6.038 0 9.341-5.003
+                9.341-9.334 0-.14 0-.282-.006-.422A6.68
+                6.68 0 0016 3.542a6.658 6.658
+                0 01-1.889.518A3.301 3.301 0
+                0015.555 2a6.533 6.533 0
+                01-2.084.793A3.286 3.286 0
+                007.875 4.03a9.325 9.325 0
+                01-6.767-3.429 3.289 3.289 0
+                001.018 4.381A3.323 3.323 0
+                01.64 4.575v.045a3.288 3.288 0
+                002.632 3.218 3.203 3.203 0
+                01-.865.115 3.23 3.23 0
+                01-.616-.057 3.283 3.283 0
+                003.067 2.277A6.588 6.588 0
+                010 13.557a9.29 9.29 0
+                005.031 1.475"/>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </footer>
+
+    <p class="mb-0 text-secondary small mt-4">
+      &copy; 2025 CreartiCome. Todos los derechos reservados.
+    </p>
+  </div>
+</footer>
+
+
+
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>

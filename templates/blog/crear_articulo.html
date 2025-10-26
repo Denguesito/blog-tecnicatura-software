@@ -3,7 +3,7 @@
 
 {% block banner %}
 <section class="banner banner-articulos">
-  <img src="{% static 'img/banner-post.webp' %}" alt="Banner de artículos del blog" class="banner-img"  loading="lazy">
+  <img src="{% static 'img/banner-post.webp' %}" alt="Banner de artículos del blog" class="banner-img" loading="lazy">
 </section>
 {% endblock banner %}
 
@@ -12,7 +12,7 @@
 {% block contenido %}
 <div class="container">
   <div class="form-article-card">
-    <h1>Crear Artículo</h1>
+    <h2>Crear Artículo</h2>
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form.media }}
@@ -27,7 +27,7 @@
 
       <div class="mb-3">
         {{ form.contenido.label_tag }}
-        {{ form.contenido }}
+          {{ form.contenido }}
         {% for error in form.contenido.errors %}
           <div class="text-danger small">{{ error }}</div>
         {% endfor %}
@@ -55,10 +55,11 @@
   </div>
 </div>
 
-<!-- Script preview imágenes (igual que antes) -->
+<!-- ===================== -->
+<!-- Previsualización de imágenes -->
+<!-- ===================== -->
 <script>
 (function(){
-  // Usamos el input real: name="imagenes" id="imagenes_hidden"
   const input = document.getElementById('imagenes_hidden');
   const previews = document.getElementById('previews');
   let dt = new DataTransfer();
@@ -107,25 +108,25 @@
     for(const file of e.target.files){
       dt.items.add(file);
     }
-    // asignar al input para que el servidor reciba los archivos
     input.files = dt.files;
-    // limpiar valor del input para permitir volver a seleccionar mismos archivos si se desea
     e.target.value = '';
     renderPreviews();
   });
 })();
 </script>
-<!-- Fallback: si CKEditor no se inicializa, crear un editor contentEditable sincronizado -->
+
+<!-- ===================== -->
+<!-- Fallback si CKEditor no se inicializa -->
+<!-- ===================== -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-  // detectar si CKEditor5 o CKEditor4 está presente
-  const ckExists = !!(window.ClassicEditor || window.DecoupledEditor || window.CKEDITOR);
-  if(ckExists) return; // editor presente, nada que hacer
-
   const textarea = document.querySelector('textarea[name="contenido"]');
   if(!textarea) return;
 
-  // crear fallback contentEditable
+  // Si no hay ningún editor de CKEditor activo
+  const ckExists = !!(window.ClassicEditor || window.DecoupledEditor || window.CKEDITOR);
+  if(ckExists) return;
+
   const fallback = document.createElement('div');
   fallback.contentEditable = 'true';
   fallback.className = 'simple-editor border rounded p-2';
@@ -136,7 +137,6 @@ document.addEventListener('DOMContentLoaded', function(){
   textarea.style.display = 'none';
   textarea.parentNode.insertBefore(fallback, textarea);
 
-  // sincronizar antes de submit
   const form = textarea.form;
   if(form){
     form.addEventListener('submit', function(){
@@ -145,111 +145,38 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 });
 </script>
-<!-- If CKEditor 5 is present but didn't initialize, ensure editor is created with initial data -->
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  // only attempt if ClassicEditor exists
-  // Refuerzo: si ClassicEditor está presente pero no se inicializó correctamente
-  if(window.ClassicEditor){
-    const toolbar = document.querySelector('.ck-toolbar');
-    const editable = document.querySelector('.ck-editor__editable, .ck-content, .ck-editor__editable_inline');
-    const textarea = document.querySelector('textarea[name="contenido"]');
-    if(textarea && !editable && !document.querySelector('.ck-editor')){
-      // crear editor con initialData inmediatamente
-      const initial = textarea.value || '';
-      const holder = document.createElement('div');
-      textarea.style.display = 'none';
-      textarea.parentNode.insertBefore(holder, textarea);
-      ClassicEditor.create(holder, { initialData: initial, simpleUpload: { uploadUrl: '/ckeditor5/upload/' } })
-        .then(editor => {
-          const form = textarea.form;
-          if(form){
-            form.addEventListener('submit', ()=> textarea.value = editor.getData());
-          }
-        })
-        .catch(err => {
-          console.warn('CKEditor refuerzo falló:', err);
-          textarea.style.display = '';
-          holder.remove();
-        });
-    }
-  }
-});
-</script>
-<!-- Fix: if toolbar exists but editable area is empty, inject textarea content into CKEditor editable and sync on submit -->
+
+<!-- ===================== -->
+<!-- Refuerzo: asegurar que CKEditor se inicialice correctamente -->
+<!-- ===================== -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   const textarea = document.querySelector('textarea[name="contenido"]');
   if(!textarea) return;
 
-  // helper to find CKEditor editable area
   function findEditable(){
-    return document.querySelector('.ck-editor__editable') || document.querySelector('.ck-content') || document.querySelector('.ck-editor__editable_inline');
+    return document.querySelector('.ck-editor__editable, .ck-content, .ck-editor__editable_inline');
   }
 
-  // if toolbar present but editable empty, copy textarea into it
-  const toolbar = document.querySelector('.ck-toolbar');
-  if(toolbar){
-    const maxAttempts = 20; let attempts = 0;
-    const iv = setInterval(()=>{
-      const ed = findEditable();
-      attempts++;
-      if(ed){
-        if((ed.innerHTML === '' || ed.innerText.trim() === '') && textarea.value.trim() !== ''){
-          ed.innerHTML = textarea.value;
-        }
-        clearInterval(iv);
-      }else if(attempts>maxAttempts){
-        clearInterval(iv);
-      }
-    }, 100);
-  }
-
-  // On submit, if there is an editable region, copy it back to textarea
-  const form = textarea.form;
-  if(form){
-    form.addEventListener('submit', function(){
-      const ed = findEditable();
-      if(ed) textarea.value = ed.innerHTML;
-    });
-  }
-});
-</script>
-<!-- Diagnostic/correction: force editable content and style if blank -->
-<script>
-(() => {
-  function findEditable(){
-    return document.querySelector('.ck-editor__editable') || document.querySelector('.ck-content') || document.querySelector('.ck-editor__editable_inline');
-  }
-
-  const textarea = document.querySelector('textarea[name="contenido"]');
-  if(!textarea) return;
-
+  const maxAttempts = 10;
   let attempts = 0;
-  const max = 10;
   const iv = setInterval(()=>{
     attempts++;
     const ed = findEditable();
-    console.debug('[CKEditor-fix] attempt', attempts, 'editable found=', !!ed);
     if(ed){
       try{
-        // If editable is empty but textarea has content, inject it
         const edText = (ed.innerText || '').trim();
         const taText = (textarea.value || '').trim();
-        console.debug('[CKEditor-fix] edText length', edText.length, 'taText length', taText.length);
         if((edText.length === 0 || ed.innerHTML.trim()==='') && taText.length>0){
           ed.innerHTML = textarea.value;
-          // ensure visible color and min-height
-          ed.style.color = '';
           ed.style.minHeight = '150px';
-          console.info('[CKEditor-fix] injected textarea content into editable');
         }
-      }catch(e){ console.warn('[CKEditor-fix] error injecting', e); }
+      }catch(e){ console.warn('[CKEditor-fix]', e); }
       clearInterval(iv);
     }
-    if(attempts>=max) clearInterval(iv);
+    if(attempts>=maxAttempts) clearInterval(iv);
   }, 300);
-})();
+});
 </script>
-<!-- Debug overlay and embedded-image delete script removed by request -->
+
 {% endblock contenido %}

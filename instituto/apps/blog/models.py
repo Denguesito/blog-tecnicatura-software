@@ -31,6 +31,16 @@ class Articulo(models.Model):
     def __str__(self):
         return self.titulo
 
+    def puede_editar(self, user):
+        """Determina si el usuario puede editar o eliminar el artículo."""
+        return (
+            user.is_authenticated and (
+                user == self.autor or
+                user.is_staff or
+                user.is_superuser
+            )
+        )
+
 class ImagenArticulo(models.Model):
     articulo = models.ForeignKey(Articulo, on_delete=models.CASCADE, related_name="imagenes")
     imagen = models.ImageField(upload_to="articulos/imagenes/")
